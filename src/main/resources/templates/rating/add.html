@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>Home</title>
+	<link rel="stylesheet" href="/webjars/bootstrap/5.2.0/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+
+	<div class="row">
+		<h2>Add New Rating</h2>
+	</div>
+
+	<div class="row">
+		<form action="#" th:action="@{/rating/validate}" th:object="${rating}" method="post" class="form-horizontal" style="width: 100%">
+			<label for="moodysRating"> </label>
+			<input class="form-control my-3 bg-light" id="moodysRating" placeholder="Moodys Rating" type="text" autofocus name="moodysRating"
+				   th:field="*{moodysRating}">
+			<span class="has-error" th:if="${#fields.hasErrors('moodysRating')}" th:errors="*{moodysRating}"></span>
+			<label for="sandPRating"> </label>
+			<input class="form-control my-3 bg-light" id="sandPRating" placeholder="Sand P Rating" type="text" th:field="*{sandPRating}">
+			<span class="has-error" th:if="${#fields.hasErrors('sandPRating')}" th:errors="*{sandPRating}"></span>
+			<label for="fitchRating"> </label>
+			<input class="form-control my-3 bg-light" id="fitchRating" placeholder="Fitch Rating" type="text" th:field="*{fitchRating}">
+			<span class="has-error" th:if="${#fields.hasErrors('fitchRating')}" th:errors="*{fitchRating}"></span>
+			<label for="orderNumber"> </label>
+			<input class="form-control my-3 bg-light" id="orderNumber" placeholder="Order Number" type="number" th:field="*{orderNumber}">
+			<span class="has-error" th:if="${#fields.hasErrors('orderNumber')}" th:errors="*{orderNumber}"></span>
+			<div class="row">
+				<div class="col sm-12">
+					<a class="btn btn-danger btn-sm" href="/rule/list">Cancel</a>
+					<button class="btn btn-primary btn-sm" type="submit">Add Rule name</button>
+				</div>
+			</div>
+		</form>
+	</div>
+
+</div>
+</body>
+</html>

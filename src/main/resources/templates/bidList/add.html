@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>Home</title>
+	<link rel="stylesheet" href="/webjars/bootstrap/5.2.0/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+
+	<div class="row">
+		<h2>Add New Bid</h2>
+	</div>
+
+	<div class="row">
+		<form action="#" th:action="@{/bidList/validate}" th:object="${bidList}" method="post" class="form-horizontal" style="width:100">
+			<label for="account"> </label>
+			<input class="form-control my-3 bg-light" id="account" placeholder="Account" type="text" autofocus name="account"
+				   th:field="*{account}">
+			<span class="has-error" th:if="${#fields.hasErrors('account')}" th:errors="*{account}"></span>
+			<label for="type"> </label>
+			<input class="form-control my-3 bg-light" id="type" placeholder="Type" type="text" th:field="*{type}">
+			<span class="has-error" th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></span>
+			<label for="bidQuantity"> </label>
+			<input class="form-control my-3 bg-light" id="bidQuantity" placeholder="Bid quantity" type="number" th:field="*{bidQuantity}">
+			<span class="has-error" th:if="${#fields.hasErrors('bidQuantity')}" th:errors="*{bidQuantity}"></span>
+			<div class="row">
+				<div class="col sm-12">
+					<a class="btn btn-danger btn-sm" href="/bidList/list">Cancel</a>
+					<button class="btn btn-primary btn-sm" type="submit">Add BidList</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+</body>
+</html>

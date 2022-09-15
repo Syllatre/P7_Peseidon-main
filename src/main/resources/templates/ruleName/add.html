@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>Home</title>
+	<link rel="stylesheet" href="/webjars/bootstrap/5.2.0/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+
+	<div class="row">
+		<h2>Add New Rule</h2>
+	</div>
+
+	<div class="row">
+		<form action="#" th:action="@{/ruleName/validate}" th:object="${ruleName}" method="post" class="form-horizontal" style="width: 100%">
+			<label for="name"> </label>
+			<input class="form-control my-3 bg-light" id="name" placeholder="Name" type="text" autofocus name="name"
+				   th:field="*{name}">
+			<span class="has-error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+			<label for="description"> </label>
+			<input class="form-control my-3 bg-light" id="description" placeholder="Description" type="text" th:field="*{description}">
+			<span class="has-error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+			<label for="json"> </label>
+			<input class="form-control my-3 bg-light" id="json" placeholder="Json" type="text" th:field="*{json}">
+			<span class="has-error" th:if="${#fields.hasErrors('json')}" th:errors="*{json}"></span>
+			<label for="template"> </label>
+			<input class="form-control my-3 bg-light" id="template" placeholder="Template" type="text" th:field="*{template}">
+			<span class="has-error" th:if="${#fields.hasErrors('template')}" th:errors="*{template}"></span>
+			<label for="sqlStr"> </label>
+			<input class="form-control my-3 bg-light" id="sqlStr" placeholder="sqlStr" type="text" th:field="*{sqlStr}">
+			<span class="has-error" th:if="${#fields.hasErrors('sqlStr')}" th:errors="*{sqlStr}"></span>
+			<label for="sqlPart"> </label>
+			<input class="form-control my-3 bg-light" id="sqlPart" placeholder="sqlPart" type="text" th:field="*{sqlPart}">
+			<span class="has-error" th:if="${#fields.hasErrors('sqlPart')}" th:errors="*{sqlPart}"></span>
+			<div class="row">
+				<div class="col sm-12">
+					<a class="btn btn-danger btn-sm" href="/ruleName/list">Cancel</a>
+					<button class="btn btn-primary btn-sm" type="submit">Add Rating</button>
+				</div>
+			</div>
+		</form>
+	</div>
+
+</div>
+</body>
+</html>
