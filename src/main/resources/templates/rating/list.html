@@ -45,8 +45,8 @@
 				<td th:text="${ratingL.fitchRating}"></td>
 				<td th:text="${ratingL.orderNumber}"></td>
 				<td>
-					<a th:href="@{/rating/update/{id}(id=${ratingL.id})}"><button class="btn btn-primary btn-sm">Edit</button></a>
-					<a th:href="@{/rating/delete/{id}(id=${ratingL.id})}"><button class="btn btn-danger btn-sm">Delete</button></a>
+					<a th:href="@{/rating/update/{id}(id=${ratingL.id})}">Edit</a>&nbsp;|&nbsp;
+					<a th:href="@{/rating/delete/{id}(id=${ratingL.id})}">Delete</a>
 				</td>
 			</tr>
 			</tbody>

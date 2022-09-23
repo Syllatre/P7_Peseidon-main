@@ -2,54 +2,76 @@ package com.poseidon.webapp.controllers;
 
 
 import com.poseidon.webapp.domain.Trade;
+import com.poseidon.webapp.service.TradeService;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
+@Slf4j
+@AllArgsConstructor
 public class TradeController {
-    // TODO: Inject Trade service
+    TradeService tradeService;
 
-    @RequestMapping("/trade/list")
+    @GetMapping("/trade/list")
     public String home(Model model)
     {
-        // TODO: find all Trade, add to model
+        List<Trade> tradeList = tradeService.findAll();
+        model.addAttribute("tradeList",tradeList);
+        log.debug("Display bid List");
         return "trade/list";
     }
 
     @GetMapping("/trade/add")
-    public String addUser(Trade bid) {
+    public String addUser(Trade bid, Model model) {
+        Trade trade = new Trade();
+        model.addAttribute("trade",trade);
+        log.debug("return new form");
+        log.debug("informations is not valid");
         return "trade/add";
     }
 
     @PostMapping("/trade/validate")
-    public String validate(@Valid Trade trade, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Trade list
-        return "trade/add";
+    public String validate(@Valid @ModelAttribute Trade trade, BindingResult result, Model model) {
+       if (result.hasErrors()){
+           return "trade/add";
+       }
+       tradeService.create(trade);
+        log.debug("trade " +trade+" was add");
+        model.addAttribute("ruleNameList", tradeService.findAll());
+        return "redirect:/trade/list";
     }
 
     @GetMapping("/trade/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get Trade by Id and to model then show to the form
+       Trade trade = tradeService.findById(id);
+       model.addAttribute("trade",trade);
+        log.debug("return form with "+trade+" to update it");
         return "trade/update";
     }
 
     @PostMapping("/trade/update/{id}")
-    public String updateTrade(@PathVariable("id") Integer id, @Valid Trade trade,
+    public String updateTrade(@PathVariable("id") Integer id, @Valid @ModelAttribute Trade trade,
                              BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Trade and return Trade list
+        if(result.hasErrors()){
+            log.debug("informations is not valid");
+            return "trade/update/{id}";
+        }
+        tradeService.update(trade);
+        log.debug("ruleName " +trade+" was updated");
         return "redirect:/trade/list";
     }
 
     @GetMapping("/trade/delete/{id}")
     public String deleteTrade(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find Trade by Id and delete the Trade, return to Trade list
+        tradeService.delete(id);
+        log.debug("trade " +id+" was deleted");
         return "redirect:/trade/list";
     }
 }

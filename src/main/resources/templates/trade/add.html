@@ -15,13 +15,24 @@
 
 	<div class="row">
 		<form action="#" th:action="@{/trade/validate}" th:object="${trade}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
-			TODO: Create a form to input the values of Trade, there are 2 buttons: Save data and Cancel to the list Trade
-			 -->
-
+			<label for="account"> </label>
+			<input class="form-control my-3 bg-light" id="account" placeholder="Account" type="text" autofocus name="account"
+				   th:field="*{account}">
+			<span class="has-error" th:if="${#fields.hasErrors('account')}" th:errors="*{account}"></span>
+			<label for="type"> </label>
+			<input class="form-control my-3 bg-light" id="type" placeholder="Type" type="text" th:field="*{type}">
+			<span class="has-error" th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></span>
+			<label for="buyQuantity"> </label>
+			<input class="form-control my-3 bg-light" id="buyQuantity" placeholder="Buy quantity" type="number" th:field="*{buyQuantity}">
+			<span class="has-error" th:if="${#fields.hasErrors('buyQuantity')}" th:errors="*{buyQuantity}"></span>
+			<div class="row">
+				<div class="col sm-12">
+					<a class="btn btn-danger btn-sm" href="/trade/list">Cancel</a>
+					<button class="btn btn-primary btn-sm" type="submit">Add Trade</button>
+				</div>
+			</div>
 		</form>
 	</div>
-
 </div>
 </body>
 </html>
