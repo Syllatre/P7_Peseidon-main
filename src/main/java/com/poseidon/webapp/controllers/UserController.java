@@ -3,6 +3,7 @@ package com.poseidon.webapp.controllers;
 
 import com.poseidon.webapp.domain.User;
 import com.poseidon.webapp.repositories.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 
 @Controller
+@Slf4j
 public class UserController {
     @Autowired
     private UserRepository userRepository;
@@ -37,6 +39,11 @@ public class UserController {
         if (!result.hasErrors()) {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             user.setPassword(encoder.encode(user.getPassword()));
+            if (userRepository.findByUsername(user.getUsername()).equals(user.getUsername())) {
+                log.debug("Username existing");
+                result.rejectValue("userDestinationId", "userDestinationNotABuddy", "Veuillez sélectionner un bénéficiaire");
+                return "transfert";
+            }
             userRepository.save(user);
             model.addAttribute("users", userRepository.findAll());
             return "redirect:/user/list";

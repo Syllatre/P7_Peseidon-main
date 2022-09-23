@@ -18,7 +18,7 @@ import java.util.List;
 public class RuleNameController {
     RuleNameService ruleNameService;
 
-    @RequestMapping("/ruleName/list")
+    @GetMapping("/ruleName/list")
     public String home(Model model)
     {
         List<RuleName> ruleNameList = ruleNameService.findAll();
@@ -36,14 +36,15 @@ public class RuleNameController {
     }
 
     @PostMapping("/ruleName/validate")
-    public String validate(@Valid @ModelAttribute RuleName ruleName, BindingResult result, Model model) {
+    public String validate(@Valid @ModelAttribute RuleName ruleName, BindingResult result,Model model) {
         if(result.hasErrors()){
             log.debug("informations is not valid");
             return "ruleName/add";
         }
         ruleNameService.create(ruleName);
         log.debug("ruleName " +ruleName+" was add");
-        return "ruleName/list";
+        model.addAttribute("ruleNameList", ruleNameService.findAll());
+        return "redirect:/ruleName/list";
     }
 
     @GetMapping("/ruleName/update/{id}")
