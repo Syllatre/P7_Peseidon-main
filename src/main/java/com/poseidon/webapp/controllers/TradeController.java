@@ -1,6 +1,7 @@
 package com.poseidon.webapp.controllers;
 
 
+import com.poseidon.webapp.domain.BidList;
 import com.poseidon.webapp.domain.Trade;
 import com.poseidon.webapp.service.TradeService;
 import lombok.AllArgsConstructor;
@@ -29,22 +30,21 @@ public class TradeController {
     }
 
     @GetMapping("/trade/add")
-    public String addUser(Trade bid, Model model) {
+    public String addUser(Model model) {
         Trade trade = new Trade();
         model.addAttribute("trade",trade);
         log.debug("return new form");
-        log.debug("informations is not valid");
         return "trade/add";
     }
 
     @PostMapping("/trade/validate")
-    public String validate(@Valid @ModelAttribute Trade trade, BindingResult result, Model model) {
+    public String validate(@Valid Trade trade, BindingResult result, Model model) {
        if (result.hasErrors()){
            return "trade/add";
        }
        tradeService.create(trade);
         log.debug("trade " +trade+" was add");
-        model.addAttribute("ruleNameList", tradeService.findAll());
+        model.addAttribute("tradeList", tradeService.findAll());
         return "redirect:/trade/list";
     }
 
@@ -57,14 +57,17 @@ public class TradeController {
     }
 
     @PostMapping("/trade/update/{id}")
-    public String updateTrade(@PathVariable("id") Integer id, @Valid @ModelAttribute Trade trade,
+    public String updateTrade(@PathVariable("id") Integer id, @Valid Trade trade,
                              BindingResult result, Model model) {
         if(result.hasErrors()){
             log.debug("informations is not valid");
             return "trade/update/{id}";
         }
-        tradeService.update(trade);
-        log.debug("ruleName " +trade+" was updated");
+        Boolean updated = tradeService.updateTrade(id, trade);
+        if(updated) {
+            model.addAttribute("trade", tradeService.findAll());
+            log.debug("Trade " +trade+" was updated");
+        }
         return "redirect:/trade/list";
     }
 

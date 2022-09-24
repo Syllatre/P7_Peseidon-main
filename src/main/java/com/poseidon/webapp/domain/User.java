@@ -1,15 +1,16 @@
 package com.poseidon.webapp.domain;
 
-import com.poseidon.webapp.configuration.ValidPassword;
 import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "users")
 @ToString
 public class User {
+    public static final String REGEX ="^(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -17,7 +18,7 @@ public class User {
     private String username;
 
     @NotBlank(message = "Password is mandatory")
-    @ValidPassword
+    @Pattern(regexp = REGEX,message = "Doit être supérieur à 8 caractère, contenir un chiffre, une majuscule et un caractère spécial")
     private String password;
     @NotBlank(message = "FullName is mandatory")
     private String fullname;

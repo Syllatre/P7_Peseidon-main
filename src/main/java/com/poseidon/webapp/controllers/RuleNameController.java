@@ -62,8 +62,11 @@ public class RuleNameController {
             log.debug("informations is not valid");
             return "ruleName/update/{id}";
         }
-       ruleNameService.update(ruleName);
-        log.debug("ruleName " +ruleName+" was updated");
+        Boolean updated = ruleNameService.updateRuleName(id, ruleName);
+        if(updated) {
+            model.addAttribute("rating", ruleNameService.findAll());
+            log.debug("ruleName " +ruleName+" was updated");
+        }
         return "redirect:/ruleName/list";
     }
 

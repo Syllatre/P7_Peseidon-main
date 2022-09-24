@@ -17,16 +17,18 @@ public class RuleName {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
-
+@NotBlank
     String name;
-
+    @NotBlank
     String description;
-
+    @NotBlank
     String json;
-
+    @NotBlank
     String template;
+    @NotBlank
 @Column(name = "sql_str")
     String sqlStr;
+    @NotBlank
     @Column(name = "sql_part")
     String sqlPart;
 

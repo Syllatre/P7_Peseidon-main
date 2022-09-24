@@ -3,6 +3,7 @@ package com.poseidon.webapp.controllers;
 
 import com.poseidon.webapp.domain.User;
 import com.poseidon.webapp.repositories.UserRepository;
+import com.poseidon.webapp.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -21,11 +22,12 @@ import javax.validation.Valid;
 public class UserController {
     @Autowired
     private UserRepository userRepository;
+    private UserService userService;
 
     @RequestMapping("/user/list")
     public String home(Model model)
     {
-        model.addAttribute("users", userRepository.findAll());
+        model.addAttribute("users", userService.findAll());
         return "user/list";
     }
 
@@ -39,13 +41,16 @@ public class UserController {
         if (!result.hasErrors()) {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             user.setPassword(encoder.encode(user.getPassword()));
-            if (userRepository.findByUsername(user.getUsername()).equals(user.getUsername())) {
+        if (userService.existsByUserName(user.getUsername())) {
                 log.debug("Username existing");
-                result.rejectValue("userDestinationId", "userDestinationNotABuddy", "Veuillez sélectionner un bénéficiaire");
-                return "transfert";
+                result.rejectValue("username", "UsernameExist", "Ce username est deja existant");
+                return "user/validate";
             }
-            userRepository.save(user);
-            model.addAttribute("users", userRepository.findAll());
+            else {
+                userService.create(user);
+                log.debug("Username "+user+" was saved");
+            }
+            model.addAttribute("users", userService.findAll());
             return "redirect:/user/list";
         }
         return "user/add";

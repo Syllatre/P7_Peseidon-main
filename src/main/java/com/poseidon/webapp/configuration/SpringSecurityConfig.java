@@ -30,9 +30,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests().antMatchers("/bidList/**", "/curvePoint/**", "/rating/**", "/ruleName/**", "/trade/**","/user/**").hasAuthority("ADMIN");
+        http.authorizeHttpRequests().antMatchers("/bidList/**", "/curvePoint/**", "/rating/**", "/ruleName/**", "/trade/**","/user/list","user/update").hasAuthority("ADMIN");
         http.authorizeHttpRequests().antMatchers("/bidList/**", "/curvePoint/**", "/rating/**", "/ruleName/**", "/trade/**").hasAuthority("USER");
-        http.authorizeRequests().antMatchers("/register/**", "/", "/webjars/**", "/img/**")
+        http.authorizeRequests().antMatchers("/user/add", "/", "/webjars/**", "/img/**")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()

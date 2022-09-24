@@ -17,6 +17,7 @@ import java.sql.Timestamp;
 public class CurvePoint {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     Integer id;
     @NotNull
     @Column(name = "curve_id")
@@ -24,9 +25,9 @@ public class CurvePoint {
 
     @Column(name = "as_of_date")
     Timestamp asOfDate;
-
+    @NotNull
     Double term;
-
+    @NotNull
     Double value;
     @Column(name = "creation_date")
     Timestamp creationDate;

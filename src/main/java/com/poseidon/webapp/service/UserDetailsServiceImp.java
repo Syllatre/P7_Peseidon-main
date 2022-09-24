@@ -1,6 +1,5 @@
 package com.poseidon.webapp.service;
 
-import com.poseidon.webapp.domain.MyUserPrincipal;
 import com.poseidon.webapp.domain.User;
 import com.poseidon.webapp.repositories.UserRepository;
 import lombok.AllArgsConstructor;

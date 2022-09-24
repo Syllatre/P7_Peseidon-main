@@ -63,8 +63,11 @@ public class RatingController {
             log.debug("informations is not valid");
             return "rating/update/{id}";
         }
-        ratingService.update(rating);
-        log.debug("Rating " +rating+" was updated");
+        Boolean updated = ratingService.updateRating(id, rating);
+        if(updated) {
+            model.addAttribute("rating", ratingService.findAll());
+            log.debug("Rating " +rating+" was updated");
+        }
         return "redirect:/rating/list";
     }
 

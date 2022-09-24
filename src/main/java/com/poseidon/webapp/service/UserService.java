@@ -6,6 +6,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
     UserRepository userRepository;
@@ -21,6 +23,16 @@ public class UserService {
         return null;
     }
 
+    public Boolean existsByUserName(String userName) {
+        return userRepository.existsByUsername(userName);
+    }
+
+    public List<User> findAll(){
+        return userRepository.findAll();
+    }
+    public User create(User user){
+        return userRepository.save(user);
+    }
     public User getCurrentUser() {
         return userRepository.findByUsername(getCurrentUserDetailsUserName());
     }

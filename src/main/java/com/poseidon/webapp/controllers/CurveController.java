@@ -3,6 +3,7 @@ package com.poseidon.webapp.controllers;
 
 import com.poseidon.webapp.domain.CurvePoint;
 import com.poseidon.webapp.service.CurveService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,12 +14,12 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping("/curvePoint")
 @Slf4j
+@AllArgsConstructor
 public class CurveController {
     private CurveService curveService;
 
-    @RequestMapping("/list")
+    @RequestMapping("/curvePoint/list")
     public String home(Model model)
     {
         List<CurvePoint> curveList = curveService.findAll();
@@ -27,7 +28,7 @@ public class CurveController {
         return "curvePoint/list";
     }
 
-    @GetMapping("/add")
+    @GetMapping("/curvePoint/add")
     public String addBidForm(Model model) {
         CurvePoint curvePoint = new CurvePoint();
         model.addAttribute("curvePoint", curvePoint);
@@ -35,18 +36,21 @@ public class CurveController {
         return "curvePoint/add";
     }
 
-    @PostMapping("/validate")
-    public String validate(@Valid @ModelAttribute CurvePoint curvePoint, BindingResult result, Model model) {
+    @PostMapping("/curvePoint/validate")
+    public String validate(@Valid CurvePoint curvePoint, BindingResult result, Model model) {
+        model.addAttribute("curveList",curveService.findAll());
         if (result.hasErrors()){
             log.debug("informations is not valid");
             return "curvePoint/add";
         }
         curveService.create(curvePoint);
         log.debug("CurvePoint " +curvePoint+" was add");
-        return "curvePoint/add";
+
+
+        return "redirect:/curvePoint/list";
     }
 
-    @GetMapping("/update/{id}")
+    @GetMapping("/curvePoint/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         CurvePoint curvePoint = curveService.findById(id);
         model.addAttribute("curvePoint",curvePoint);
@@ -54,19 +58,22 @@ public class CurveController {
         return "curvePoint/update";
     }
 
-    @PostMapping("/update/{id}")
-    public String updateBid(@PathVariable("id") Integer id, @Valid @ModelAttribute CurvePoint curvePoint,
+    @PostMapping("/curvePoint/update/{id}")
+    public String updateBid(@PathVariable("id") Integer id, @Valid @ModelAttribute("curvePoint") CurvePoint curvePoint,
                              BindingResult result, Model model) {
         if (result.hasErrors()){
             log.debug("informations is not valid");
             return "curvePoint/update/{id}";
         }
-        curveService.update(curvePoint);
-        log.debug("CurvePoint " +curvePoint+" was updated");
+        Boolean updated = curveService.updateCurvePoint(id, curvePoint);
+        if(updated) {
+            model.addAttribute("bidLists", curveService.findAll());
+            log.debug("CurvePoint " +curvePoint+" was updated");
+        }
         return "redirect:/curvePoint/list";
     }
 
-    @GetMapping("/delete/{id}")
+    @GetMapping("/curvePoint/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
         curveService.delete(id);
         log.debug("curvePoint " +id+" was deleted");

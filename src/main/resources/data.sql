@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `poseidon`.`bidlist` (
   DEFAULT CHARACTER SET = utf8mb4
   COLLATE = utf8mb4_0900_ai_ci;
 
-CREATE TABLE IF NOT EXISTS `poseidon`.`Trade`(
+CREATE TABLE IF NOT EXISTS `poseidon`.`trade`(
   trade_id tinyint(4) NOT NULL AUTO_INCREMENT,
   account VARCHAR(30) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci',
   type VARCHAR(30) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci',
@@ -66,8 +66,8 @@ ENGINE = InnoDB
  DEFAULT CHARACTER SET = utf8mb4
  COLLATE = utf8mb4_0900_ai_ci;
 
-CREATE TABLE IF NOT EXISTS `poseidon`.`CurvePoint`(
-  Id tinyint(4) NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `poseidon`.`curvePoint`(
+  id tinyint(4) NOT NULL AUTO_INCREMENT,
   curve_id tinyint(4) NOT NULL,
   as_of_date TIMESTAMP,
   term DOUBLE NOT NULL,
@@ -79,7 +79,7 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
-CREATE TABLE IF NOT EXISTS `poseidon`.`Rating` (
+CREATE TABLE IF NOT EXISTS `poseidon`.`rating` (
   id tinyint(4) NOT NULL AUTO_INCREMENT,
   moodys_rating VARCHAR(125) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci',
   sand_p_rating VARCHAR(125) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci',
@@ -90,8 +90,8 @@ CREATE TABLE IF NOT EXISTS `poseidon`.`Rating` (
   DEFAULT CHARACTER SET = utf8mb4
   COLLATE = utf8mb4_0900_ai_ci;
 
-CREATE TABLE IF NOT EXISTS `poseidon`.`RuleName`(
-  `Id` tinyint(4) NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `poseidon`.`ruleName`(
+  `id` tinyint(4) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(125) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci',
   `description` VARCHAR(125) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci',
   `json` VARCHAR(125) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci',
@@ -104,7 +104,7 @@ CREATE TABLE IF NOT EXISTS `poseidon`.`RuleName`(
   COLLATE = utf8mb4_0900_ai_ci;
 
 CREATE TABLE IF NOT EXISTS `poseidon`.`Users`(
-  Id tinyint(4) NOT NULL AUTO_INCREMENT,
+  id tinyint(4) NOT NULL AUTO_INCREMENT,
   username VARCHAR(125) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci' NOT NULL,
   password VARCHAR(125) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci' NOT NULL,
   fullname VARCHAR(125) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci' NOT NULL,

@@ -18,11 +18,11 @@
 			<input class="form-control my-3 bg-light" id="curveId" placeholder="Curve Id" type="number" autofocus name="curveId"
 				   th:field="*{curveId}">
 			<span class="has-error" th:if="${#fields.hasErrors('curveId')}" th:errors="*{curveId}"></span>
-			<label for="type"> </label>
-			<input class="form-control my-3 bg-light" id="type" placeholder="Type" type="number" th:field="*{type}">
-			<span class="has-error" th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></span>
+			<label for="term"> </label>
+			<input class="form-control my-3 bg-light" id="term" placeholder="Term" type="number" th:field="*{term}">
+			<span class="has-error" th:if="${#fields.hasErrors('term')}" th:errors="*{term}"></span>
 			<label for="value"> </label>
-			<input class="form-control my-3 bg-light" id="value" placeholder="Bid quantity" type="number" th:field="*{value}">
+			<input class="form-control my-3 bg-light" id="value" placeholder="Value" type="number" th:field="*{value}">
 			<span class="has-error" th:if="${#fields.hasErrors('value')}" th:errors="*{value}"></span>
 			<div class="row">
 				<div class="col sm-12">
