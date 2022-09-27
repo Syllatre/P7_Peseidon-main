@@ -2,13 +2,16 @@ package com.poseidon.webapp.service;
 
 import com.poseidon.webapp.domain.User;
 import com.poseidon.webapp.repositories.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class UserService {
     UserRepository userRepository;
 
@@ -31,9 +34,12 @@ public class UserService {
         return userRepository.findAll();
     }
     public User create(User user){
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.setPassword(encoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
     public User getCurrentUser() {
         return userRepository.findByUsername(getCurrentUserDetailsUserName());
     }
+
 }

@@ -4,6 +4,7 @@ package com.poseidon.webapp.controllers;
 import com.poseidon.webapp.domain.User;
 import com.poseidon.webapp.repositories.UserRepository;
 import com.poseidon.webapp.service.UserService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,41 +20,40 @@ import javax.validation.Valid;
 
 @Controller
 @Slf4j
+@AllArgsConstructor
 public class UserController {
-    @Autowired
+
     private UserRepository userRepository;
     private UserService userService;
 
     @RequestMapping("/user/list")
-    public String home(Model model)
-    {
+    public String home(Model model) {
         model.addAttribute("users", userService.findAll());
         return "user/list";
     }
 
     @GetMapping("/user/add")
-    public String addUser(User bid) {
+    public String addUser(Model model) {
+        User user = new User();
+        model.addAttribute("user", user);
         return "user/add";
     }
 
-    @PostMapping("/user/validate")
-    public String validate(@Valid User user, BindingResult result, Model model) {
-        if (!result.hasErrors()) {
-            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            user.setPassword(encoder.encode(user.getPassword()));
-        if (userService.existsByUserName(user.getUsername())) {
-                log.debug("Username existing");
-                result.rejectValue("username", "UsernameExist", "Ce username est deja existant");
-                return "user/validate";
-            }
-            else {
-                userService.create(user);
-                log.debug("Username "+user+" was saved");
-            }
-            model.addAttribute("users", userService.findAll());
-            return "redirect:/user/list";
+    @PostMapping("/user/add")
+    public String validate(@Valid User user, BindingResult result) {
+//        model.addAttribute("users", userService.findAll());
+        if (result.hasErrors()) {
+            return "user/add";
         }
-        return "user/add";
+        if (userService.existsByUserName(user.getUsername())) {
+            log.debug("Username existing");
+            result.rejectValue("username", "UsernameExist", "Ce username est deja existant");
+            return "user/add";
+        }
+        userService.create(user);
+        log.debug("Username " + user + " was saved");
+        return "redirect:/user/add?success";
+
     }
 
     @GetMapping("/user/update/{id}")

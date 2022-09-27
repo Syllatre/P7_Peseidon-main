@@ -1,8 +1,6 @@
 package com.poseidon.webapp.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.beans.factory.annotation.Required;
 
 import javax.persistence.*;
@@ -14,9 +12,8 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "bidlist")
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
+@NoArgsConstructor
 public class BidList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -116,6 +116,6 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 TRUNCATE TABLE `Users`;
 
-INSERT IGNORE INTO `Users`(fullname, username, password, role) values
-('Administrator', 'admin', '$2a$10$1CqRTrB8yOLXVmAMXCHbAu08ameoCePTPenJ7Zhr1E6/.GdnbRn.u', 'ADMIN'),
-('User', 'user', '$2a$10$1CqRTrB8yOLXVmAMXCHbAu08ameoCePTPenJ7Zhr1E6/.GdnbRn.u', 'USER');
+INSERT IGNORE INTO `Users`(id, fullname, username, password, role) values
+(45, 'Administrator', 'admin', '$2a$10$1CqRTrB8yOLXVmAMXCHbAu08ameoCePTPenJ7Zhr1E6/.GdnbRn.u', 'ADMIN'),
+(46, 'User', 'user', '$2a$10$1CqRTrB8yOLXVmAMXCHbAu08ameoCePTPenJ7Zhr1E6/.GdnbRn.u', 'USER');
