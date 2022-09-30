@@ -11,7 +11,8 @@ import javax.validation.constraints.Pattern;
 @Data
 @NoArgsConstructor
 public class User {
-    public static final String REGEX = "^(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+    public static final String REGEX = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*@#$%^&+=])(?=\\S+$).{8,}$";
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +20,7 @@ public class User {
     @NotBlank(message = "Username is mandatory")
     private String username;
     @Pattern(regexp = REGEX, message = "Doit être supérieur à 8 caractère, contenir un chiffre, une majuscule et un caractère spécial")
+    @NotBlank(message = "Password is mandatory")
     private String password;
     @NotBlank(message = "FullName is mandatory")
     private String fullname;

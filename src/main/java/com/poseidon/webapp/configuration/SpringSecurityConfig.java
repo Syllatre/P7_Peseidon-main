@@ -32,9 +32,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests().antMatchers("/user/list","/user/update/**","/user/delete/**").hasAnyAuthority("ADMIN")
                 .antMatchers("/bidList/**", "/curvePoint/**", "/rating/**", "/ruleName/**", "/trade/**").hasAnyAuthority("ADMIN", "USER", "ROLE_USER");
-//        http.authorizeHttpRequests().antMatchers("/bidList/**", "/curvePoint/**", "/rating/**", "/ruleName/**", "/trade/**","/user/list","user/update").hasAuthority("ADMIN");
-//        http.authorizeHttpRequests().antMatchers("/bidList/**", "/curvePoint/**", "/rating/**", "/ruleName/**", "/trade/**").hasAuthority("USER");
-        http.authorizeRequests().antMatchers("/user/add", "/", "/webjars/**", "/img/**")
+
+
+        http.csrf().disable()
+                .authorizeRequests().antMatchers("/user/add", "/", "/webjars/**", "/image/**")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -42,6 +43,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .defaultSuccessUrl("/bidList/list")
                 .loginProcessingUrl("/login")
+                .and()
+                .oauth2Login()
+                .loginPage("/login")
+                .defaultSuccessUrl("/bidList/list")
                 .permitAll()
                 .and()
                 .logout()
@@ -53,6 +58,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .rememberMe().tokenRepository(persistentTokenRepository());
+
+
     }
 
     @Bean

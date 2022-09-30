@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import java.util.List;
 @Slf4j
 public class BidListController {
     private BidListService bidListService;
+
 
     @GetMapping("/bidList/list")
     public String home(Model model) {
