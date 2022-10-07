@@ -27,10 +27,6 @@ public class CurveService {
         return curvePointRepository.findById(id).get();
     }
 
-    public CurvePoint update(CurvePoint curvePoint){
-        return curvePointRepository.save(curvePoint);
-    }
-
     public void delete(int id){
         curvePointRepository.deleteById(id);
     }

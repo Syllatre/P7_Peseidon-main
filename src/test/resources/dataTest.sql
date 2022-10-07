@@ -1,16 +1,6 @@
 CREATE SCHEMA IF NOT EXISTS `poseidontest` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
 USE `poseidontest`;
 
-CREATE TABLE IF NOT EXISTS `poseidontest`.`persistent_logins` (
-  `username` VARCHAR(64) NOT NULL,
-  `series` VARCHAR(64) NOT NULL,
-  `token` VARCHAR(64) NOT NULL,
-  `last_used` TIMESTAMP NOT NULL,
-  PRIMARY KEY (`series`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
 CREATE TABLE IF NOT EXISTS `poseidontest`.`bidlist` (
   bid_list_id tinyint(4) NOT NULL AUTO_INCREMENT,
   account VARCHAR(30) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci',
@@ -117,5 +107,5 @@ COLLATE = utf8mb4_0900_ai_ci;
 TRUNCATE TABLE `Users`;
 
 INSERT IGNORE INTO `Users`(id, fullname, username, password, role) values
-(45, 'Administrator', 'admin', '$2a$10$1CqRTrB8yOLXVmAMXCHbAu08ameoCePTPenJ7Zhr1E6/.GdnbRn.u', 'ADMIN'),
+(1, 'aimenjerbi', 'aimen', , 'ADMIN'),
 (46, 'User', 'user', '$2a$10$1CqRTrB8yOLXVmAMXCHbAu08ameoCePTPenJ7Zhr1E6/.GdnbRn.u', 'USER');

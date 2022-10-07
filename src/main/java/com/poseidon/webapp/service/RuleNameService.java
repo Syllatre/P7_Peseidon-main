@@ -25,10 +25,6 @@ public class RuleNameService {
         return ruleNameRepository.save(ruleName);
     }
 
-    public RuleName update(RuleName ruleName) {
-        return ruleNameRepository.save(ruleName);
-    }
-
     public void delete(int id) {
         ruleNameRepository.deleteById(id);
     }

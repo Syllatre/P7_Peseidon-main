@@ -38,8 +38,4 @@ public class UserService {
         user.setPassword(encoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
-    public User getCurrentUser() {
-        return userRepository.findByUsername(getCurrentUserDetailsUserName());
-    }
-
 }

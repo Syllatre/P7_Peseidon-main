@@ -15,10 +15,6 @@ import java.util.Optional;
 public class BidListService {
     private BidListRepository bidListRepository;
 
-    public BidList update(BidList bidList){
-        return bidListRepository.save(bidList);
-    }
-
     public BidList create(BidList bidList){
         return bidListRepository.save(bidList);
     }
@@ -27,7 +23,7 @@ public class BidListService {
         bidListRepository.deleteById(bidListId);
     }
 
-public BidList findById(int id){
+    public BidList findById(int id){
     Optional<BidList> findById = bidListRepository.findById(id);
     return findById.get();
 }

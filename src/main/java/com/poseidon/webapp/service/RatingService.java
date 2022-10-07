@@ -25,10 +25,6 @@ public class RatingService {
         return ratingRepository.save(rating);
     }
 
-    public Rating update (Rating rating){
-        return ratingRepository.save(rating);
-    }
-
     public void delete(int id){
         ratingRepository.deleteById(id);
     }

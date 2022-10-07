@@ -1,16 +1,6 @@
 CREATE SCHEMA IF NOT EXISTS `poseidon` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
 USE `poseidon`;
 
-CREATE TABLE IF NOT EXISTS `poseidon`.`persistent_logins` (
-  `username` VARCHAR(64) NOT NULL,
-  `series` VARCHAR(64) NOT NULL,
-  `token` VARCHAR(64) NOT NULL,
-  `last_used` TIMESTAMP NOT NULL,
-  PRIMARY KEY (`series`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
 CREATE TABLE IF NOT EXISTS `poseidon`.`bidlist` (
   bid_list_id tinyint(4) NOT NULL AUTO_INCREMENT,
   account VARCHAR(30) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci',

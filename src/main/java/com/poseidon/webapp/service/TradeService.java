@@ -24,10 +24,6 @@ public class TradeService {
         return tradeRepository.save(trade);
     }
 
-    public Trade update(Trade trade) {
-        return tradeRepository.save(trade);
-    }
-
     public void delete(int id) {
         tradeRepository.deleteById(id);
     }

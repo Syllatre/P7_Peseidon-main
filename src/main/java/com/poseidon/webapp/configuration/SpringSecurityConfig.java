@@ -10,11 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
-import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-
-import javax.sql.DataSource;
 
 
 @AllArgsConstructor
@@ -25,48 +21,32 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
 
 
-    private DataSource dataSource;
-
-
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests().antMatchers("/user/list","/user/update/**","/user/delete/**").hasAnyAuthority("ADMIN")
+        http.authorizeHttpRequests().antMatchers("/user/list", "/user/update/**", "/user/delete/**").hasAnyAuthority("ADMIN")
                 .antMatchers("/bidList/**", "/curvePoint/**", "/rating/**", "/ruleName/**", "/trade/**").hasAnyAuthority("ADMIN", "USER", "ROLE_USER");
 
 
-        http.csrf().disable()
+        http
                 .authorizeRequests().antMatchers("/user/add", "/", "/webjars/**", "/image/**")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/bidList/list")
-                .loginProcessingUrl("/login")
-                .and()
-                .oauth2Login()
-                .loginPage("/login")
+                .loginProcessingUrl("/app/login")
                 .defaultSuccessUrl("/bidList/list")
                 .permitAll()
+                .and().oauth2Login()
+                .defaultSuccessUrl("/bidList/list").permitAll()
                 .and()
                 .logout()
                 .deleteCookies("JSESSIONID")
                 .invalidateHttpSession(true)
                 .clearAuthentication(true)
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login?logout")
-                .permitAll()
-                .and()
-                .rememberMe().tokenRepository(persistentTokenRepository());
+                .logoutRequestMatcher(new AntPathRequestMatcher("/app-logout"))
+                .permitAll();
 
 
-    }
-
-    @Bean
-    public PersistentTokenRepository persistentTokenRepository() {
-        JdbcTokenRepositoryImpl tokenRepo = new JdbcTokenRepositoryImpl();
-        tokenRepo.setDataSource(dataSource);
-        return tokenRepo;
     }
 
     @Bean
