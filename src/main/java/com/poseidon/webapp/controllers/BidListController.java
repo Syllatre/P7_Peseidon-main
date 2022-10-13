@@ -62,14 +62,14 @@ public class BidListController {
                             BindingResult result, Model model) {
         if (result.hasErrors()) {
             log.debug("informations is not valid");
-            return "/update/{id}";
+            return "bidList/update";
         }
         Boolean updated = bidListService.updateBidList(id, bidList);
         if(updated) {
             model.addAttribute("bidLists", bidListService.findAll());
             log.debug("Bid " + bidList + " was updated");
         }
-            return "redirect:/bidList/list";
+        return "redirect:/bidList/list";
     }
 
     @GetMapping("/bidList/delete/{id}")

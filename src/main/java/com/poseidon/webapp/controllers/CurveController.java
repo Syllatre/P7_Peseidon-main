@@ -63,7 +63,7 @@ public class CurveController {
                              BindingResult result, Model model) {
         if (result.hasErrors()){
             log.debug("informations is not valid");
-            return "curvePoint/update/{id}";
+            return "curvePoint/update";
         }
         Boolean updated = curveService.updateCurvePoint(id, curvePoint);
         if(updated) {

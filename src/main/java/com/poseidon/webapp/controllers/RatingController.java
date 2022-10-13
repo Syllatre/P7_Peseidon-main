@@ -61,7 +61,7 @@ public class RatingController {
                              BindingResult result, Model model) {
         if(result.hasErrors()){
             log.debug("informations is not valid");
-            return "rating/update/{id}";
+            return "rating/update";
         }
         Boolean updated = ratingService.updateRating(id, rating);
         if(updated) {

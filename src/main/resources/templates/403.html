@@ -4,13 +4,8 @@
       <title>Spring Boot</title>
 </head>
 <body>
-   <h3>Access Denied Exception</h3>
-   <div>
-	    Logged in user: <b th:inline="text"  class="user"> [[${#httpServletRequest.remoteUser}]] </b>
-	    <form th:action="@{/app-logout}" method="POST">
-	         <input type="submit" value="Logout"/>
-	    </form>
-   </div> 	 
-    <p class="error" th:text="${errorMsg}">Error</p>
+<div class="container">
+    <h3 class="text-danger">Vous n'êtes pas autorisé à consulter cette page</h3>
+</div>
 </body>
 </html>   

@@ -29,12 +29,14 @@ public class UserController {
     @RequestMapping("/user/list")
     public String home(Model model) {
         model.addAttribute("users", userService.findAll());
+        log.debug("Display user list");
         return "user/list";
     }
 
     @GetMapping("/user/add")
     public String addUser(Model model) {
         User user = new User();
+        log.debug("Display new user form");
         model.addAttribute("user", user);
         return "user/add";
     }

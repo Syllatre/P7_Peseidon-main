@@ -61,7 +61,7 @@ public class TradeController {
                              BindingResult result, Model model) {
         if(result.hasErrors()){
             log.debug("informations is not valid");
-            return "trade/update/{id}";
+            return "trade/update";
         }
         Boolean updated = tradeService.updateTrade(id, trade);
         if(updated) {

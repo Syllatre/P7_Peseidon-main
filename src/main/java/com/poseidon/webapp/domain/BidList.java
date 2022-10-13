@@ -24,6 +24,7 @@ public class BidList {
     @NotBlank(message = "Account is mandatory")
     String type;
     @Column(name = "bid_quantity")
+    @NotNull
     Double bidQuantity;
     @Column(name = "ask_quantity")
     Double askQuantity;

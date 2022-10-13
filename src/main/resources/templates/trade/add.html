@@ -22,9 +22,6 @@
 			<label for="type"> </label>
 			<input class="form-control my-3 bg-light" id="type" placeholder="Type" type="text" th:field="*{type}">
 			<span class="has-error" th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></span>
-			<label for="buyQuantity"> </label>
-			<input class="form-control my-3 bg-light" id="buyQuantity" placeholder="Buy quantity" type="number" th:field="*{buyQuantity}">
-			<span class="has-error" th:if="${#fields.hasErrors('buyQuantity')}" th:errors="*{buyQuantity}"></span>
 			<div class="row">
 				<div class="col sm-12">
 					<a class="btn btn-danger btn-sm" href="/trade/list">Cancel</a>
