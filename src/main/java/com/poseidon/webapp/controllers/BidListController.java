@@ -49,22 +49,22 @@ public class BidListController {
         return "redirect:/bidList/list";
     }
 
-    @GetMapping("/bidList/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        BidList bidList = bidListService.findById(id);
+    @GetMapping("/bidList/update/{BidListId}")
+    public String showUpdateForm(@PathVariable("BidListId") Integer BidListId, Model model) {
+        BidList bidList = bidListService.findById(BidListId);
         model.addAttribute("bidList", bidList);
         log.debug("return form with " + bidList + " to update it");
         return "bidList/update";
     }
 
-    @PostMapping("/bidList/update/{id}")
-    public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList,
+    @PostMapping("/bidList/update/{BidListId}")
+    public String updateBid(@PathVariable("BidListId") Integer BidListId, @Valid BidList bidList,
                             BindingResult result, Model model) {
         if (result.hasErrors()) {
             log.debug("informations is not valid");
             return "bidList/update";
         }
-        Boolean updated = bidListService.updateBidList(id, bidList);
+        Boolean updated = bidListService.updateBidList(BidListId, bidList);
         if(updated) {
             model.addAttribute("bidLists", bidListService.findAll());
             log.debug("Bid " + bidList + " was updated");
@@ -72,8 +72,8 @@ public class BidListController {
         return "redirect:/bidList/list";
     }
 
-    @GetMapping("/bidList/delete/{id}")
-    public String deleteBid(@PathVariable("id") Integer id, Model model) {
+    @GetMapping("/bidList/delete/{bidListId}")
+    public String deleteBid(@PathVariable("bidListId") Integer id, Model model) {
         bidListService.delete(id);
         log.debug("Bid " + id + " was deleted");
         return "redirect:/bidList/list";

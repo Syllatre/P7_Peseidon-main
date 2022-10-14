@@ -32,7 +32,7 @@ public class LoginController {
     }
 
     @GetMapping("/403")
-    public String NotAuthorized() {
+    public String notAuthorized() {
       return "403";
     }
 }

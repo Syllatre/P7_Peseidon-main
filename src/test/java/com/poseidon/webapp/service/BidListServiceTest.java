@@ -1,7 +1,6 @@
 package com.poseidon.webapp.service;
 
 import com.poseidon.webapp.domain.BidList;
-import com.poseidon.webapp.domain.CurvePoint;
 import com.poseidon.webapp.repositories.BidListRepository;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;

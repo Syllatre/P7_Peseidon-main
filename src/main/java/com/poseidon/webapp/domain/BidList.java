@@ -1,13 +1,10 @@
 package com.poseidon.webapp.domain;
 
 import lombok.*;
-import org.springframework.beans.factory.annotation.Required;
 
 import javax.persistence.*;
-import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.sql.Date;
 import java.sql.Timestamp;
 
 @Entity
@@ -18,41 +15,41 @@ public class BidList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "bid_list_id")
-    Integer BidListId;
+    private Integer BidListId;
     @NotBlank(message = "Account is mandatory")
-    String account;
+    private String account;
     @NotBlank(message = "Account is mandatory")
-    String type;
+    private String type;
     @Column(name = "bid_quantity")
     @NotNull
-    Double bidQuantity;
+    private Double bidQuantity;
     @Column(name = "ask_quantity")
-    Double askQuantity;
-    Double bid;
-    Double ask;
-    String benchmark;
+    private Double askQuantity;
+    private Double bid;
+    private Double ask;
+    private String benchmark;
     @Column(name = "bid_list_date")
-    Timestamp bidListDate;
-    String commentary;
-    String security;
-    String status;
-    String trader;
-    String book;
+    private Timestamp bidListDate;
+    private String commentary;
+    private String security;
+    private String status;
+    private String trader;
+    private String book;
     @Column(name = "creation_name")
-    String creationName;
+    private String creationName;
     @Column(name = "creation_date")
-    Timestamp creationDate;
+    private Timestamp creationDate;
     @Column(name = "revision_name")
-    String revisionName;
+    private String revisionName;
     @Column(name = "revision_date")
-    Timestamp revisionDate;
+    private Timestamp revisionDate;
     @Column(name = "deal_name")
-    String dealName;
+    private String dealName;
     @Column(name = "deal_type")
-    String dealType;
+    private String dealType;
     @Column(name = "source_list_id")
-    String sourceListId;
-    String side;
+    private String sourceListId;
+    private String side;
 
     public BidList(String account, String type, Double bidQuantity) {
         this.account = account;

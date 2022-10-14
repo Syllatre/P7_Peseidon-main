@@ -1,6 +1,7 @@
 package com.poseidon.webapp.controllers;
 
 
+import com.poseidon.webapp.domain.BidList;
 import com.poseidon.webapp.domain.CurvePoint;
 import com.poseidon.webapp.service.CurveService;
 import lombok.AllArgsConstructor;

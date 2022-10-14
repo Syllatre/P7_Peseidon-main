@@ -13,7 +13,7 @@
 	</div>
 
 	<div class="row">
-		<form action="#" th:action="@{/bidList/update/{id}(id=${bidList.bidListId})}" th:object="${bidList}" method="post" class="form-horizontal" style="width: 100%">
+		<form action="#" th:action="@{/bidList/update/{id}(id=${bidList.BidListId})}" th:object="${bidList}" method="post" class="form-horizontal" style="width: 100%">
 			<label for="account"> </label>
 			<input class="form-control my-3 bg-light" id="account" placeholder="Account" type="text" autofocus name="account"
 				   th:field="*{account}">
