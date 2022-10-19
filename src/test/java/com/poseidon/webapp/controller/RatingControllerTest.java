@@ -4,7 +4,6 @@ import com.poseidon.webapp.configTest.ConfigurationTest;
 import com.poseidon.webapp.controllers.RatingController;
 import com.poseidon.webapp.domain.Rating;
 import com.poseidon.webapp.service.RatingService;
-import com.poseidon.webapp.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +33,6 @@ public class RatingControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
-    @MockBean
-    private UserService userService;
 
     @MockBean
     private RatingService ratingService;

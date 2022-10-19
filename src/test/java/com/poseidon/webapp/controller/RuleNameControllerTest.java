@@ -4,7 +4,6 @@ import com.poseidon.webapp.configTest.ConfigurationTest;
 import com.poseidon.webapp.controllers.RuleNameController;
 import com.poseidon.webapp.domain.RuleName;
 import com.poseidon.webapp.service.RuleNameService;
-import com.poseidon.webapp.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +32,6 @@ public class RuleNameControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
-    @MockBean
-    private UserService userService;
 
     @MockBean
     private RuleNameService ruleNameService;

@@ -2,11 +2,8 @@ package com.poseidon.webapp.controller;
 
 import com.poseidon.webapp.configTest.ConfigurationTest;
 import com.poseidon.webapp.controllers.TradeController;
-import com.poseidon.webapp.domain.RuleName;
 import com.poseidon.webapp.domain.Trade;
-import com.poseidon.webapp.service.RuleNameService;
 import com.poseidon.webapp.service.TradeService;
-import com.poseidon.webapp.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +22,6 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 
 @WebMvcTest(TradeController.class)
 @Import(ConfigurationTest.class)
@@ -36,9 +32,6 @@ public class TradeControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
-    @MockBean
-    private UserService userService;
 
     @MockBean
     private TradeService tradeService;
@@ -121,7 +114,7 @@ public class TradeControllerTest {
 
     @Test
     @WithUserDetails("aimen")
-    void updateCurvePoint() throws Exception {
+    void updateTrade() throws Exception {
         when(tradeService.updateTrade(1, trade1)).thenReturn(true);
 
         mockMvc.perform(post("/trade/update/1")
@@ -136,7 +129,7 @@ public class TradeControllerTest {
 
     @Test
     @WithUserDetails("aimen")
-    void wrongUpdateCurvePoint() throws Exception {
+    void wrongUpdateTrade() throws Exception {
         when(tradeService.updateTrade(1, trade1)).thenReturn(true);
 
         mockMvc.perform(post("/trade/update/1")
@@ -151,7 +144,7 @@ public class TradeControllerTest {
 
     @Test
     @WithUserDetails("aimen")
-    void deleteCurvePoint() throws Exception {
+    void deleteTrade() throws Exception {
         mockMvc.perform(get("/trade/delete/1"))
                 .andExpect(redirectedUrl("/trade/list"));
 

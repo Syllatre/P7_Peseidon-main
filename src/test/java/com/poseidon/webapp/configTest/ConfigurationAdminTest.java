@@ -8,12 +8,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 import java.util.Arrays;
-
 @TestConfiguration
-public class ConfigurationTest {
+public class ConfigurationAdminTest {
     @Bean
     public UserDetailsService userDetailsServiceUser() {
-        User user = new User("aimen", "Password10*", Arrays.asList(new SimpleGrantedAuthority("USER")));
-            return new InMemoryUserDetailsManager(Arrays.asList(user));
+        User user = new User("admin", "Password10*", Arrays.asList(new SimpleGrantedAuthority("ADMIN")));
+        return new InMemoryUserDetailsManager(Arrays.asList(user));
     }
 }

@@ -3,10 +3,9 @@ package com.poseidon.webapp.controllers;
 
 import com.poseidon.webapp.domain.User;
 import com.poseidon.webapp.repositories.UserRepository;
-import com.poseidon.webapp.service.UserService;
+import com.poseidon.webapp.service.UserServiceImp;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,9 +21,7 @@ import javax.validation.Valid;
 @Slf4j
 @AllArgsConstructor
 public class UserController {
-
-    private UserRepository userRepository;
-    private UserService userService;
+    private UserServiceImp userService;
 
     @RequestMapping("/user/list")
     public String home(Model model) {
@@ -60,7 +57,7 @@ public class UserController {
 
     @GetMapping("/user/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        User user = userService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         user.setPassword("");
         model.addAttribute("user", user);
         return "user/update";
@@ -76,16 +73,16 @@ public class UserController {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setPassword(encoder.encode(user.getPassword()));
         user.setId(id);
-        userRepository.save(user);
-        model.addAttribute("users", userRepository.findAll());
+        userService.update(user);
+        model.addAttribute("users", userService.findAll());
         return "redirect:/user/list";
     }
 
     @GetMapping("/user/delete/{id}")
     public String deleteUser(@PathVariable("id") Integer id, Model model) {
-        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-        userRepository.delete(user);
-        model.addAttribute("users", userRepository.findAll());
+        User user = userService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        userService.delete(user);
+        model.addAttribute("users", userService.findAll());
         return "redirect:/user/list";
     }
 }

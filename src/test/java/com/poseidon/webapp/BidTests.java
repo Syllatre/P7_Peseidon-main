@@ -43,9 +43,5 @@ public class BidTests {
 		Optional<BidList> bidList = bidListRepository.findById(id);
 		Assert.assertFalse(bidList.isPresent());
 	}
-//	public static void main(String[] args) {
-//		Pattern pattern = Pattern.compile("^(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$");
-//		Matcher matcher = pattern.matcher("Naruto10*");
-//		System.out.println(matcher.matches());
-//	}
+
 }
