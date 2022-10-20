@@ -27,7 +27,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @TestPropertySource({"/applicationtest.properties"})
 @Sql(scripts = "/poseidontest.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class CurveIT {
 
     @Autowired
@@ -37,7 +36,6 @@ public class CurveIT {
 
     @Test
     @WithMockUser(username = "user", password = "$2a$10$1CqRTrB8yOLXVmAMXCHbAu08ameoCePTPenJ7Zhr1E6/.GdnbRn.u", authorities = "USER")
-    @Order(1)
     public void displayCurvePointList_1() throws Exception {
         mockMvc.perform(get("/curvePoint/list"))
                 .andExpect(model().attributeExists("curveList"))
@@ -47,7 +45,6 @@ public class CurveIT {
 
     @Test
     @WithMockUser(username = "user", password = "$2a$10$1CqRTrB8yOLXVmAMXCHbAu08ameoCePTPenJ7Zhr1E6/.GdnbRn.u", authorities = "USER")
-    @Order(2)
     void addValideCurvePoint_2() throws Exception {
         CurvePoint curve1 = new CurvePoint(1, 2.0, 10.0);
         mockMvc.perform(post("/curvePoint/validate")
@@ -60,13 +57,15 @@ public class CurveIT {
                 .andExpect(redirectedUrl("/curvePoint/list"));
         CurvePoint curvePointSaved = curveService.findById(1);
         assertEquals(curvePointSaved.getId(), 1);
+
+        curveService.delete(1);
     }
 
     @Test
     @WithMockUser(username = "user", password = "$2a$10$1CqRTrB8yOLXVmAMXCHbAu08ameoCePTPenJ7Zhr1E6/.GdnbRn.u", authorities = "USER")
-    @Order(3)
     void updateCurvePoint_3() throws Exception {
         CurvePoint curve1 = new CurvePoint(1, 2.0, 10.0);
+        curveService.create(curve1);
         mockMvc.perform(post("/curvePoint/update/1")
                         .param("curveId", "1")
                         .param("term", curve1.getTerm().toString())
@@ -76,12 +75,16 @@ public class CurveIT {
                 .andExpect(redirectedUrl("/curvePoint/list"));
 
         assertEquals(curveService.findById(1).getValue(), 143.0);
+
+        curveService.delete(1);
     }
 
     @Test
     @WithMockUser(username = "user", password = "$2a$10$1CqRTrB8yOLXVmAMXCHbAu08ameoCePTPenJ7Zhr1E6/.GdnbRn.u", authorities = "USER")
-    @Order(4)
     void deleteCurvePoint_4() throws Exception {
+        CurvePoint curve1 = new CurvePoint(1, 2.0, 10.0);
+        curveService.create(curve1);
+
         mockMvc.perform(get("/curvePoint/delete/1"))
                 .andExpect(redirectedUrl("/curvePoint/list"));
     }

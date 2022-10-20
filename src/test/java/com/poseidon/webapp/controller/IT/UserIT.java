@@ -34,7 +34,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @AutoConfigureMockMvc
 @TestPropertySource({"/applicationtest.properties"})
 @Sql(scripts = "/poseidontest.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class UserIT {
 
     @Autowired
@@ -44,7 +43,6 @@ public class UserIT {
 
     @Test
     @WithMockUser(username = "admin", password = "$2a$10$1CqRTrB8yOLXVmAMXCHbAu08ameoCePTPenJ7Zhr1E6/.GdnbRn.u", authorities = "ADMIN")
-    @Order(1)
     public void displayUserList() throws Exception {
         mockMvc.perform(get("/user/list"))
                 .andExpect(model().attributeExists("users"))
@@ -54,7 +52,6 @@ public class UserIT {
 
     @Test
     @WithMockUser(username = "admin", password = "$2a$10$1CqRTrB8yOLXVmAMXCHbAu08ameoCePTPenJ7Zhr1E6/.GdnbRn.u", authorities = "ADMIN")
-    @Order(2)
     void addUser() throws Exception {
         User user1 = new User("username","Password10*","fullname","USER");
         mockMvc.perform(post("/user/add")
@@ -69,13 +66,15 @@ public class UserIT {
 
         User userSaved = userServiceImp.findById(3).get();
         assertEquals(userSaved.getFullname(),"fullname");
+
+        userServiceImp.delete(user1);
     }
 
     @Test
     @WithMockUser(username = "admin", password = "$2a$10$1CqRTrB8yOLXVmAMXCHbAu08ameoCePTPenJ7Zhr1E6/.GdnbRn.u", authorities = "ADMIN")
-    @Order(3)
     void updateUser() throws Exception {
         User user1 = new User("username","Password10*","fullname","USER");
+        userServiceImp.create(user1);
 
         mockMvc.perform(post("/user/update/3")
                         .param("username", "akira")
@@ -88,13 +87,17 @@ public class UserIT {
 
         User userUpdate = userServiceImp.findById(3).get();
         assertEquals(userUpdate.getUsername(),"akira");
+
+        userServiceImp.delete(user1);
     }
-//    @Test
-//    @WithMockUser(username = "admin", password = "$2a$10$1CqRTrB8yOLXVmAMXCHbAu08ameoCePTPenJ7Zhr1E6/.GdnbRn.u", authorities = "ADMIN")
-//    @Order(4)
-//    void deleteUser() throws Exception {
-//
-//        mockMvc.perform(get("/user/delete/3"))
-//                .andExpect(redirectedUrl("/user/list"));
-//    }
+    @Test
+    @WithMockUser(username = "admin", password = "$2a$10$1CqRTrB8yOLXVmAMXCHbAu08ameoCePTPenJ7Zhr1E6/.GdnbRn.u", authorities = "ADMIN")
+    @Order(4)
+    void deleteUser() throws Exception {
+        User user1 = new User("username","Password10*","fullname","USER");
+        userServiceImp.create(user1);
+
+        mockMvc.perform(get("/user/delete/3"))
+                .andExpect(redirectedUrl("/user/list"));
+    }
 }

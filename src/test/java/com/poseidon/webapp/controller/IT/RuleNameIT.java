@@ -27,7 +27,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @TestPropertySource({"/applicationtest.properties"})
 @Sql(scripts = "/poseidontest.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class RuleNameIT {
 
     @Autowired
@@ -37,7 +36,6 @@ public class RuleNameIT {
 
     @Test
     @WithMockUser(username = "user", password = "$2a$10$1CqRTrB8yOLXVmAMXCHbAu08ameoCePTPenJ7Zhr1E6/.GdnbRn.u", authorities = "USER")
-    @Order(1)
     public void displayRuleNameList() throws Exception {
         mockMvc.perform(get("/ruleName/list"))
                 .andExpect(model().attributeExists("ruleNameList"))
@@ -47,7 +45,6 @@ public class RuleNameIT {
 
     @Test
     @WithMockUser(username = "user", password = "$2a$10$1CqRTrB8yOLXVmAMXCHbAu08ameoCePTPenJ7Zhr1E6/.GdnbRn.u", authorities = "USER")
-    @Order(2)
     void addValideRuleName() throws Exception {
         RuleName ruleName1 = new RuleName("name", "description", "json", "template", "sqlStr", "sqlPart");
 
@@ -65,13 +62,15 @@ public class RuleNameIT {
 
         RuleName ruleNameSaved = ruleNameService.findById(1);
         assertEquals(ruleNameSaved.getName(), "name");
+
+        ruleNameService.delete(1);
     }
 
     @Test
     @WithMockUser(username = "user", password = "$2a$10$1CqRTrB8yOLXVmAMXCHbAu08ameoCePTPenJ7Zhr1E6/.GdnbRn.u", authorities = "USER")
-    @Order(3)
     void updateCurvePoint() throws Exception {
         RuleName ruleName1 = new RuleName("name", "description", "json", "template", "sqlStr", "sqlPart");
+        ruleNameService.create(ruleName1);
 
         mockMvc.perform(post("/ruleName/update/1")
                         .param("name", "akira")
@@ -86,12 +85,16 @@ public class RuleNameIT {
 
         RuleName ruleNameUpdate = ruleNameService.findById(1);
         assertEquals(ruleNameUpdate.getName(), "akira");
+
+        ruleNameService.delete(1);
     }
 
     @Test
     @WithMockUser(username = "user", password = "$2a$10$1CqRTrB8yOLXVmAMXCHbAu08ameoCePTPenJ7Zhr1E6/.GdnbRn.u", authorities = "USER")
-    @Order(4)
     void deleteCurvePoint() throws Exception {
+        RuleName ruleName1 = new RuleName("name", "description", "json", "template", "sqlStr", "sqlPart");
+        ruleNameService.create(ruleName1);
+
         mockMvc.perform(get("/ruleName/delete/1"))
                 .andExpect(redirectedUrl("/ruleName/list"));
     }

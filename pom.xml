@@ -198,6 +198,11 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.5</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/domain/**</exclude>
+                    </excludes>
+                </configuration>
                 <executions>
                     <execution>
                         <id>before-integration-test-execution</id>

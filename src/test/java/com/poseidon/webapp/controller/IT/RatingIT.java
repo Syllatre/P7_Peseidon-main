@@ -27,7 +27,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @TestPropertySource({"/applicationtest.properties"})
 @Sql(scripts = "/poseidontest.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class RatingIT {
 
     @Autowired
@@ -37,7 +36,6 @@ public class RatingIT {
 
     @Test
     @WithMockUser(username = "user", password = "$2a$10$1CqRTrB8yOLXVmAMXCHbAu08ameoCePTPenJ7Zhr1E6/.GdnbRn.u", authorities = "USER")
-    @Order(1)
     public void displayRatingList() throws Exception {
         mockMvc.perform(get("/rating/list"))
                 .andExpect(model().attributeExists("ratingList"))
@@ -47,7 +45,6 @@ public class RatingIT {
 
     @Test
     @WithMockUser(username = "user", password = "$2a$10$1CqRTrB8yOLXVmAMXCHbAu08ameoCePTPenJ7Zhr1E6/.GdnbRn.u", authorities = "USER")
-    @Order(2)
     void addValideRating() throws Exception {
         Rating rating1 = new Rating("moodysRating", "sandPRating", "fitchRating", 1);
         mockMvc.perform(post("/rating/validate")
@@ -62,13 +59,15 @@ public class RatingIT {
         Rating ratingSaved = ratingService.findById(1);
 
         assertEquals(ratingSaved.getMoodysRating(), "moodysRating");
+
+        ratingService.delete(1);
     }
 
     @Test
     @WithMockUser(username = "user", password = "$2a$10$1CqRTrB8yOLXVmAMXCHbAu08ameoCePTPenJ7Zhr1E6/.GdnbRn.u", authorities = "USER")
-    @Order(3)
     void updateCurvePoint() throws Exception {
         Rating rating1 = new Rating("moodysRating", "sandPRating", "fitchRating", 1);
+        ratingService.create(rating1);
 
         mockMvc.perform(post("/rating/update/1")
                         .param("moodysRating", rating1.getMoodysRating())
@@ -80,12 +79,16 @@ public class RatingIT {
                 .andExpect(redirectedUrl("/rating/list"));
         Rating ratingSaved = ratingService.findById(1);
         assertEquals(ratingSaved.getOrderNumber(), 10);
+
+        ratingService.delete(1);
     }
 
     @Test
     @WithMockUser(username = "user", password = "$2a$10$1CqRTrB8yOLXVmAMXCHbAu08ameoCePTPenJ7Zhr1E6/.GdnbRn.u", authorities = "USER")
-    @Order(4)
     void deleteCurvePoint() throws Exception {
+        Rating rating1 = new Rating("moodysRating", "sandPRating", "fitchRating", 1);
+        ratingService.create(rating1);
+
         mockMvc.perform(get("/rating/delete/1"))
                 .andExpect(redirectedUrl("/rating/list"));
     }

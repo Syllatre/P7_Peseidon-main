@@ -73,6 +73,8 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
+TRUNCATE TABLE `curvePoint`;
+
 CREATE TABLE IF NOT EXISTS `poseidontest`.`rating` (
   id tinyint(4) NOT NULL AUTO_INCREMENT,
   moodys_rating VARCHAR(125) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci',
@@ -83,6 +85,8 @@ CREATE TABLE IF NOT EXISTS `poseidontest`.`rating` (
   ENGINE = InnoDB
   DEFAULT CHARACTER SET = utf8mb4
   COLLATE = utf8mb4_0900_ai_ci;
+
+  TRUNCATE TABLE `rating`;
 
 CREATE TABLE IF NOT EXISTS `poseidontest`.`ruleName`(
   `id` tinyint(4) NOT NULL AUTO_INCREMENT,
@@ -96,6 +100,8 @@ CREATE TABLE IF NOT EXISTS `poseidontest`.`ruleName`(
   ENGINE = InnoDB
   DEFAULT CHARACTER SET = utf8mb4
   COLLATE = utf8mb4_0900_ai_ci;
+
+  TRUNCATE TABLE `ruleName`;
 
 CREATE TABLE IF NOT EXISTS `poseidontest`.`Users`(
   id tinyint(4) NOT NULL AUTO_INCREMENT,

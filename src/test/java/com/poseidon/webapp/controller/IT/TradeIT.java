@@ -27,7 +27,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @TestPropertySource({"/applicationtest.properties"})
 @Sql(scripts = "/poseidontest.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class TradeIT {
 
     @Autowired
@@ -37,7 +36,6 @@ public class TradeIT {
 
     @Test
     @WithMockUser(username = "user", password = "$2a$10$1CqRTrB8yOLXVmAMXCHbAu08ameoCePTPenJ7Zhr1E6/.GdnbRn.u", authorities = "USER")
-    @Order(1)
     public void displayTradeList() throws Exception {
         mockMvc.perform(get("/trade/list"))
                 .andExpect(model().attributeExists("tradeList"))
@@ -47,7 +45,6 @@ public class TradeIT {
 
     @Test
     @WithMockUser(username = "user", password = "$2a$10$1CqRTrB8yOLXVmAMXCHbAu08ameoCePTPenJ7Zhr1E6/.GdnbRn.u", authorities = "USER")
-    @Order(2)
     void addValideTradeWithError() throws Exception {
         Trade trade1 = new Trade("account", "type");
 
@@ -60,13 +57,15 @@ public class TradeIT {
 
         Trade tradeSaved = tradeService.findById(1);
         assertEquals(tradeSaved.getAccount(), "account");
+
+        tradeService.delete(1);
     }
 
     @Test
     @WithMockUser(username = "user", password = "$2a$10$1CqRTrB8yOLXVmAMXCHbAu08ameoCePTPenJ7Zhr1E6/.GdnbRn.u", authorities = "USER")
-    @Order(3)
     void updateTrade() throws Exception {
         Trade trade1 = new Trade("account", "type");
+        tradeService.create(trade1);
 
         mockMvc.perform(post("/trade/update/1")
                         .param("account", "account10")
@@ -77,12 +76,16 @@ public class TradeIT {
 
         Trade tradeUpdate = tradeService.findById(1);
         assertEquals(tradeUpdate.getAccount(), "account10");
+
+        tradeService.delete(1);
     }
 
     @Test
     @WithMockUser(username = "user", password = "$2a$10$1CqRTrB8yOLXVmAMXCHbAu08ameoCePTPenJ7Zhr1E6/.GdnbRn.u", authorities = "USER")
-    @Order(4)
     void deleteTrade() throws Exception {
+        Trade trade1 = new Trade("account", "type");
+        tradeService.create(trade1);
+
         mockMvc.perform(get("/trade/delete/1"))
                 .andExpect(redirectedUrl("/trade/list"));
     }
