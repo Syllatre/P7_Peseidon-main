@@ -9,7 +9,7 @@
     </parent>
     <groupId>com.poseidon.WebApp</groupId>
     <artifactId>PoseidonWebApp</artifactId>
-    <version>1</version>
+    <version>3.8.6</version>
     <name>PoseidonWebApp</name>
     <description>Web application Poseidon</description>
     <properties>
@@ -186,9 +186,23 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.5</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/domain/**</exclude>
+                    </excludes>
+                </configuration>
                 <executions>
                     <execution>
                         <id>before-integration-test-execution</id>

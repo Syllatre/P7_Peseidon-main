@@ -54,17 +54,17 @@ public class UserControllerAdminTest {
     }
 
 
-//    @Test
-//    @WithUserDetails("aimen")
-//    public void displayUserList() throws Exception {
-//        when(userService.findAll()).thenReturn(Arrays.asList(user1, user2));
-//        mockMvc.perform(get("/user/list"))
-//                .andExpect(model().attributeExists("users"))
-//                .andExpect(view().name("user/list"))
-//                .andExpect(status().isOk());
-//
-//        verify(userService).findAll();
-//    }
+    @Test
+    @WithUserDetails("admin")
+    public void displayUserList() throws Exception {
+        when(userService.findAll()).thenReturn(Arrays.asList(user1, user2));
+        mockMvc.perform(get("/user/list"))
+                .andExpect(model().attributeExists("users"))
+                .andExpect(view().name("user/list"))
+                .andExpect(status().isOk());
+
+        verify(userService).findAll();
+    }
 
     @Test
     @WithUserDetails("admin")
@@ -150,7 +150,7 @@ public class UserControllerAdminTest {
 
     @Test
     @WithUserDetails("admin")
-    void deleteCurvePoint() throws Exception {
+    void deleteUser() throws Exception {
         when(userService.findById(3)).thenReturn(user3);
         mockMvc.perform(get("/user/delete/3"))
                 .andExpect(redirectedUrl("/user/list"));

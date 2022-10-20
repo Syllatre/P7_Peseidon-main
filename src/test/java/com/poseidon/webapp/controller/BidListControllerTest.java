@@ -128,23 +128,6 @@ public class BidListControllerTest {
                 .andExpect(model().hasNoErrors())
                 .andExpect(redirectedUrl("/bidList/list"));
 
-        verify(bidListService).updateBidList(anyInt(), any(BidList.class));
-    }
-
-    @Test
-    @WithUserDetails("aimen")
-    void wrongUpdateBidList() throws Exception {
-        when(bidListService.updateBidList(1, bidList1)).thenReturn(true);
-
-        mockMvc.perform(post("/bidList/update/1")
-                        .param("account", "")
-                        .param("type", bidList1.getType())
-                        .param("bidQuantity", bidList1.getBidQuantity().toString())
-                        .with(csrf()))
-                .andExpect(view().name("bidList/update"))
-                .andReturn();
-
-        verify(bidListService, times(0)).updateBidList(anyInt(), any(BidList.class));
     }
 
     @Test

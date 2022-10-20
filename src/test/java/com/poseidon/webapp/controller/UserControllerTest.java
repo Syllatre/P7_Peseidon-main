@@ -58,17 +58,6 @@ public class UserControllerTest {
     }
 
 
-//    @Test
-//    @WithUserDetails("aimen")
-//    public void displayUserList() throws Exception {
-//        when(userService.findAll()).thenReturn(Arrays.asList(user1, user2));
-//        mockMvc.perform(get("/user/list"))
-//                .andExpect(model().attributeExists("users"))
-//                .andExpect(view().name("user/list"))
-//                .andExpect(status().isOk());
-//
-//        verify(userService).findAll();
-//    }
 
     @Test
     @WithUserDetails("aimen")
@@ -96,6 +85,26 @@ public class UserControllerTest {
                 .andExpect(redirectedUrl("/user/add?success"));
 
         verify(userService).create(any(User.class));
+    }
+
+    @Test
+    @WithUserDetails("aimen")
+    void addUserWithExistingUsername() throws Exception {
+        when(userService.create(user1)).thenReturn(user1);
+        when(userService.findAll()).thenReturn(Arrays.asList(user2));
+        when(userService.existsByUserName("username")).thenReturn(true);
+
+        mockMvc.perform(post("/user/add")
+                        .param("username", user1.getUsername())
+                        .param("fullname", user1.getFullname())
+                        .param("password", user1.getPassword())
+                        .param("role", user1.getRole())
+                        .with(csrf()))
+                .andExpect(model().hasErrors())
+                .andExpect(view().name("user/add"))
+                .andReturn();
+
+        verify(userService, times(0)).create(any(User.class));
     }
 
     @Test
