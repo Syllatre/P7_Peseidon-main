@@ -29,6 +29,8 @@ CREATE TABLE IF NOT EXISTS `poseidontest`.`bidlist` (
   DEFAULT CHARACTER SET = utf8mb4
   COLLATE = utf8mb4_0900_ai_ci;
 
+  TRUNCATE TABLE `bidlist`;
+
 CREATE TABLE IF NOT EXISTS `poseidontest`.`trade`(
   trade_id tinyint(4) NOT NULL AUTO_INCREMENT,
   account VARCHAR(30) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci',
@@ -55,6 +57,8 @@ PRIMARY KEY (`trade_id`))
 ENGINE = InnoDB
  DEFAULT CHARACTER SET = utf8mb4
  COLLATE = utf8mb4_0900_ai_ci;
+
+ TRUNCATE TABLE `trade`;
 
 CREATE TABLE IF NOT EXISTS `poseidontest`.`curvePoint`(
   id tinyint(4) NOT NULL AUTO_INCREMENT,
@@ -107,5 +111,5 @@ COLLATE = utf8mb4_0900_ai_ci;
 TRUNCATE TABLE `Users`;
 
 INSERT IGNORE INTO `Users`(id, fullname, username, password, role) values
-(1, 'aimenjerbi', 'aimen', , 'ADMIN'),
-(46, 'User', 'user', '$2a$10$1CqRTrB8yOLXVmAMXCHbAu08ameoCePTPenJ7Zhr1E6/.GdnbRn.u', 'USER');
+(1, 'admin', 'admin', '$2a$10$1CqRTrB8yOLXVmAMXCHbAu08ameoCePTPenJ7Zhr1E6/.GdnbRn.u', 'ADMIN'),
+(2, 'user', 'user', '$2a$10$1CqRTrB8yOLXVmAMXCHbAu08ameoCePTPenJ7Zhr1E6/.GdnbRn.u', 'USER');

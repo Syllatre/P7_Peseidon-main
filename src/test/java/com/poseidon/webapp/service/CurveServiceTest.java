@@ -38,7 +38,7 @@ public class CurveServiceTest {
     }
 
     @AfterAll
-    private void deletedBidList() {
+    private void deletedCurve() {
         curvePointRepository.delete(curvePoint.get());
     }
 

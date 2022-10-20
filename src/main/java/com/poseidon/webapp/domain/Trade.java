@@ -22,7 +22,6 @@ public class Trade {
     @NotBlank
     String type;
     @Column(name = "buy_quantity")
-    @NotNull
     Double buyQuantity;
     @Column(name = "sell_quantity")
     Double sellQuantity;
