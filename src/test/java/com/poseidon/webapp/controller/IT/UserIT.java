@@ -62,7 +62,7 @@ public class UserIT {
                         .with(csrf()))
                 .andExpect(model().hasNoErrors())
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/user/add?success"));
+                .andExpect(redirectedUrl("/"));
 
         User userSaved = userServiceImp.findById(3).get();
         assertEquals(userSaved.getFullname(),"fullname");

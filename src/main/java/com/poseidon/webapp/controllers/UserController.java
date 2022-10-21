@@ -51,7 +51,7 @@ public class UserController {
         }
         userService.create(user);
         log.debug("Username " + user + " was saved");
-        return "redirect:/user/add?success";
+        return "redirect:/";
 
     }
 

@@ -89,7 +89,7 @@ public class UserControllerAdminTest {
                         .with(csrf()))
                 .andExpect(model().hasNoErrors())
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/user/add?success"));
+                .andExpect(redirectedUrl("/"));
 
         verify(userService).create(any(User.class));
     }
