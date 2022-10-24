@@ -27,8 +27,8 @@ public class TradeService {
         tradeRepository.deleteById(id);
     }
 
-    public Trade findById(int id, Trade trade) {
-        return trade;
+    public Trade findById(int id) {
+        return tradeRepository.findById(id).get();
     }
 
     public Boolean updateTrade(Integer id, Trade trade) {
