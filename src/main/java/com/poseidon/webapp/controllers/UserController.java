@@ -2,7 +2,6 @@ package com.poseidon.webapp.controllers;
 
 
 import com.poseidon.webapp.domain.User;
-import com.poseidon.webapp.repositories.UserRepository;
 import com.poseidon.webapp.service.UserServiceImp;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

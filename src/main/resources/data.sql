@@ -90,9 +90,9 @@ CREATE TABLE IF NOT EXISTS `poseidon`.`Users`(
   role VARCHAR(125)  NOT NULL,
 PRIMARY KEY (`Id`));
 
+TRUNCATE TABLE `Users`;
 
 
-
-INSERT INTO `Users`(fullname, username, password, role) values
-('Administrator', 'admin', '$2a$10$1CqRTrB8yOLXVmAMXCHbAu08ameoCePTPenJ7Zhr1E6/.GdnbRn.u', 'ADMIN'),
-('User', 'user', '$2a$10$1CqRTrB8yOLXVmAMXCHbAu08ameoCePTPenJ7Zhr1E6/.GdnbRn.u', 'USER');
+INSERT IGNORE INTO `Users`(id, fullname, username, password, role) values
+(1,'Administrator', 'admin', '$2a$10$1CqRTrB8yOLXVmAMXCHbAu08ameoCePTPenJ7Zhr1E6/.GdnbRn.u', 'ADMIN'),
+(2,'User', 'user', '$2a$10$1CqRTrB8yOLXVmAMXCHbAu08ameoCePTPenJ7Zhr1E6/.GdnbRn.u', 'USER');

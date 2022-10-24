@@ -1,10 +1,10 @@
 package com.poseidon.webapp.domain;
 
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.sql.Timestamp;
 
 @Entity
 @Table(name = "rulename")
@@ -13,21 +13,21 @@ import java.sql.Timestamp;
 public class RuleName {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
-@NotBlank
-    String name;
+    private Integer id;
     @NotBlank
-    String description;
+    private String name;
     @NotBlank
-    String json;
+    private String description;
     @NotBlank
-    String template;
+    private String json;
     @NotBlank
-@Column(name = "sql_str")
-    String sqlStr;
+    private String template;
+    @NotBlank
+    @Column(name = "sql_str")
+    private String sqlStr;
     @NotBlank
     @Column(name = "sql_part")
-    String sqlPart;
+    private String sqlPart;
 
     public RuleName(String name, String description, String json, String template, String sqlStr, String sqlPart) {
         this.name = name;

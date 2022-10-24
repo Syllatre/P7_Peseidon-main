@@ -15,33 +15,34 @@ import java.util.Optional;
 public class CurveService {
     CurvePointRepository curvePointRepository;
 
-    public List<CurvePoint> findAll(){
+    public List<CurvePoint> findAll() {
         return curvePointRepository.findAll();
     }
 
-    public CurvePoint create(CurvePoint curvePoint){
+    public CurvePoint create(CurvePoint curvePoint) {
         return curvePointRepository.save(curvePoint);
     }
 
-    public CurvePoint findById(int id){
+    public CurvePoint findById(int id) {
         return curvePointRepository.findById(id).get();
     }
 
-    public void delete(int id){
+    public void delete(int id) {
         curvePointRepository.deleteById(id);
     }
-    public boolean updateCurvePoint(int id, CurvePoint curvePoint){
-         Optional <CurvePoint> curvePointExist = curvePointRepository.findById(id);
-        if(curvePointExist.isPresent()){
+
+    public boolean updateCurvePoint(int id, CurvePoint curvePoint) {
+        Optional<CurvePoint> curvePointExist = curvePointRepository.findById(id);
+        if (curvePointExist.isPresent()) {
             CurvePoint curvePointUpdate = curvePointExist.get();
             curvePointUpdate.setCurveId(curvePoint.getCurveId());
             curvePointUpdate.setTerm(curvePoint.getTerm());
             curvePointUpdate.setValue(curvePoint.getValue());
             curvePointRepository.save(curvePointUpdate);
-        log.debug("CurvePoint "+id+" was updated");
+            log.debug("CurvePoint " + id + " was updated");
             return true;
         }
-        log.debug("the update was failed because the id: "+id+" doesn't exist");
+        log.debug("the update was failed because the id: " + id + " doesn't exist");
         return false;
     }
 }

@@ -1,6 +1,5 @@
 package com.poseidon.webapp.service;
 
-import com.poseidon.webapp.domain.RuleName;
 import com.poseidon.webapp.domain.Trade;
 import com.poseidon.webapp.repositories.TradeRepository;
 import lombok.AllArgsConstructor;
@@ -28,8 +27,8 @@ public class TradeService {
         tradeRepository.deleteById(id);
     }
 
-    public Trade findById(int id) {
-        return tradeRepository.findById(id).get();
+    public Trade findById(int id, Trade trade) {
+        return trade;
     }
 
     public Boolean updateTrade(Integer id, Trade trade) {

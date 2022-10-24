@@ -1,10 +1,10 @@
 package com.poseidon.webapp.domain;
 
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 
@@ -16,41 +16,41 @@ public class Trade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "trade_id")
-    Integer tradeId;
+    private Integer tradeId;
     @NotBlank
-    String account;
+    private String account;
     @NotBlank
-    String type;
+    private String type;
     @Column(name = "buy_quantity")
-    Double buyQuantity;
+    private Double buyQuantity;
     @Column(name = "sell_quantity")
-    Double sellQuantity;
+    private Double sellQuantity;
     @Column(name = "buy_price")
-    Double buyPrice;
+    private Double buyPrice;
     @Column(name = "sell_price")
-    Double sellPrice;
+    private Double sellPrice;
     String benchmark;
     @Column(name = "trade_date")
-    Timestamp tradeDate;
-    String security;
-    String status;
-    String trader;
-    String book;
+    private Timestamp tradeDate;
+    private String security;
+    private String status;
+    private String trader;
+    private String book;
     @Column(name = "creation_name")
-    String creationName;
+    private String creationName;
     @Column(name = "creation_date")
-    Timestamp creationDate;
+    private Timestamp creationDate;
     @Column(name = "revision_name")
-    String revisionName;
+    private String revisionName;
     @Column(name = "revision_date")
-    Timestamp revisionDate;
+    private Timestamp revisionDate;
     @Column(name = "deal_name")
-    String dealName;
+    private String dealName;
     @Column(name = "deal_type")
-    String dealType;
+    private String dealType;
     @Column(name = "source_list_id")
-    String sourceListId;
-    String side;
+    private String sourceListId;
+    private String side;
 
     public Trade(String account, String type) {
         this.account = account;

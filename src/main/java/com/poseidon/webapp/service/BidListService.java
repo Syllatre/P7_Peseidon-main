@@ -15,19 +15,20 @@ import java.util.Optional;
 public class BidListService {
     private BidListRepository bidListRepository;
 
-    public BidList create(BidList bidList){
+    public BidList create(BidList bidList) {
         return bidListRepository.save(bidList);
     }
 
-    public void delete(int bidListId){
+    public void delete(int bidListId) {
         bidListRepository.deleteById(bidListId);
     }
 
-    public BidList findById(int id){
-    Optional<BidList> findById = bidListRepository.findById(id);
-    return findById.get();
-}
-    public List<BidList> findAll(){
+    public BidList findById(int id) {
+        Optional<BidList> findById = bidListRepository.findById(id);
+        return findById.get();
+    }
+
+    public List<BidList> findAll() {
         return bidListRepository.findAll();
     }
 
@@ -40,10 +41,10 @@ public class BidListService {
             updateBidList.setType(bidList.getType());
             updateBidList.setBidQuantity(bidList.getBidQuantity());
             bidListRepository.save(updateBidList);
-            log.debug("BidList "+id+" was updated");
+            log.debug("BidList " + id + " was updated");
             return true;
         }
-        log.debug("the update was failed because the id: "+id+" doesn't exist");
+        log.debug("the update was failed because the id: " + id + " doesn't exist");
         return false;
     }
 }

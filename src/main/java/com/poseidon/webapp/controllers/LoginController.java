@@ -31,8 +31,4 @@ public class LoginController {
         return mav;
     }
 
-    @GetMapping("/403")
-    public String notAuthorized() {
-      return "403";
-    }
 }

@@ -1,6 +1,5 @@
 package com.poseidon.webapp.service;
 
-import com.poseidon.webapp.domain.Rating;
 import com.poseidon.webapp.domain.RuleName;
 import com.poseidon.webapp.repositories.RuleNameRepository;
 import lombok.AllArgsConstructor;

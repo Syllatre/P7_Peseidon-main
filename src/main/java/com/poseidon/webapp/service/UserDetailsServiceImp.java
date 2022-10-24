@@ -32,13 +32,14 @@ public class UserDetailsServiceImp implements UserDetailsService {
                 .authorities(getAuthorities(user)).build();
         return userDetails;
     }
-        private Collection<GrantedAuthority> getAuthorities(User user) {
-            Collection<GrantedAuthority> authorities = new ArrayList<>(2);
-            if (user.getRole().equals("ADMIN")) {
-                authorities.add(new SimpleGrantedAuthority("ADMIN"));
-            } else if (user.getRole().equals("USER")) {
-                authorities.add(new SimpleGrantedAuthority("USER"));
-            }
-            return authorities;
+
+    private Collection<GrantedAuthority> getAuthorities(User user) {
+        Collection<GrantedAuthority> authorities = new ArrayList<>(2);
+        if (user.getRole().equals("ADMIN")) {
+            authorities.add(new SimpleGrantedAuthority("ADMIN"));
+        } else if (user.getRole().equals("USER")) {
+            authorities.add(new SimpleGrantedAuthority("USER"));
         }
+        return authorities;
+    }
 }

@@ -1,6 +1,5 @@
 package com.poseidon.webapp.service;
 
-import com.poseidon.webapp.domain.BidList;
 import com.poseidon.webapp.domain.Rating;
 import com.poseidon.webapp.repositories.RatingRepository;
 import lombok.AllArgsConstructor;
@@ -17,19 +16,19 @@ public class RatingService {
 
     private RatingRepository ratingRepository;
 
-    public List<Rating> findAll(){
+    public List<Rating> findAll() {
         return ratingRepository.findAll();
     }
 
-    public Rating create (Rating rating){
+    public Rating create(Rating rating) {
         return ratingRepository.save(rating);
     }
 
-    public void delete(int id){
+    public void delete(int id) {
         ratingRepository.deleteById(id);
     }
 
-    public Rating findById(int id){
+    public Rating findById(int id) {
         return ratingRepository.findById(id).get();
     }
 
@@ -45,7 +44,7 @@ public class RatingService {
             log.info("Rating with id " + id + " is updated as " + updateRating);
             return true;
         }
-        log.debug("the update was failed because the id: "+id+" doesn't exist");
+        log.debug("the update was failed because the id: " + id + " doesn't exist");
         return false;
     }
 }

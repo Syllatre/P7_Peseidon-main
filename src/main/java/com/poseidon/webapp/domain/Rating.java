@@ -1,11 +1,11 @@
 package com.poseidon.webapp.domain;
 
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
 
 @Entity
 @Table(name = "rating")
@@ -14,20 +14,20 @@ import java.sql.Timestamp;
 public class Rating {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    private Integer id;
 
     @NotBlank
     @Column(name = "moodys_rating")
-    String moodysRating;
+    private String moodysRating;
     @NotBlank
     @Column(name = "sand_p_rating")
-    String sandPRating;
+    private String sandPRating;
     @NotBlank
     @Column(name = "fitch_rating")
-    String fitchRating;
+    private String fitchRating;
     @NotNull
     @Column(name = "order_number")
-    Integer orderNumber;
+    private Integer orderNumber;
 
     public Rating(String moodysRating, String sandPRating, String fitchRating, Integer orderNumber) {
         this.moodysRating = moodysRating;

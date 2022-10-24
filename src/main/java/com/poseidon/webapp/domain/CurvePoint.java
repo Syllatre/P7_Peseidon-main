@@ -1,6 +1,7 @@
 package com.poseidon.webapp.domain;
 
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -15,17 +16,17 @@ public class CurvePoint {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    Integer id;
+    private Integer id;
     @NotNull
     @Column(name = "curve_id")
-    Integer curveId;
+    private Integer curveId;
 
     @Column(name = "as_of_date")
-    Timestamp asOfDate;
+    private Timestamp asOfDate;
     @NotNull
-    Double term;
+    private Double term;
     @NotNull
-    Double value;
+    private Double value;
     @Column(name = "creation_date")
     Timestamp creationDate;
 
