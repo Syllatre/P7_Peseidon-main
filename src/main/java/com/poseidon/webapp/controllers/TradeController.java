@@ -25,7 +25,7 @@ public class TradeController {
     public String home(Model model) {
         List<Trade> tradeList = tradeService.findAll();
         model.addAttribute("tradeList", tradeList);
-        log.debug("Display bid List");
+        log.info("Display bid List");
         return "trade/list";
     }
 
@@ -33,7 +33,7 @@ public class TradeController {
     public String addUser(Model model) {
         Trade trade = new Trade();
         model.addAttribute("trade", trade);
-        log.debug("return new form");
+        log.info("return new form");
         return "trade/add";
     }
 
@@ -43,7 +43,7 @@ public class TradeController {
             return "trade/add";
         }
         tradeService.create(trade);
-        log.debug("trade " + trade + " was add");
+        log.info("trade " + trade + " was add");
         model.addAttribute("tradeList", tradeService.findAll());
         return "redirect:/trade/list";
     }
@@ -52,7 +52,7 @@ public class TradeController {
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         Trade trade = tradeService.findById(id);
         model.addAttribute("trade", trade);
-        log.debug("return form with " + trade + " to update it");
+        log.info("return form with " + trade + " to update it");
         return "trade/update";
     }
 
@@ -60,13 +60,13 @@ public class TradeController {
     public String updateTrade(@PathVariable("id") Integer id, @Valid Trade trade,
                               BindingResult result, Model model) {
         if (result.hasErrors()) {
-            log.debug("informations is not valid");
+            log.info("informations is not valid");
             return "trade/update";
         }
         Boolean updated = tradeService.updateTrade(id, trade);
         if (updated) {
             model.addAttribute("trade", tradeService.findAll());
-            log.debug("Trade " + trade + " was updated");
+            log.info("Trade " + trade + " was updated");
         }
         return "redirect:/trade/list";
     }
@@ -74,7 +74,7 @@ public class TradeController {
     @GetMapping("/trade/delete/{id}")
     public String deleteTrade(@PathVariable("id") Integer id, Model model) {
         tradeService.delete(id);
-        log.debug("trade " + id + " was deleted");
+        log.info("trade " + id + " was deleted");
         return "redirect:/trade/list";
     }
 }

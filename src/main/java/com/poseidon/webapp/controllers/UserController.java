@@ -25,14 +25,14 @@ public class UserController {
     @RequestMapping("/user/list")
     public String home(Model model) {
         model.addAttribute("users", userService.findAll());
-        log.debug("Display user list");
+        log.info("Display user list");
         return "user/list";
     }
 
     @GetMapping("/user/add")
     public String addUser(Model model) {
         User user = new User();
-        log.debug("Display new user form");
+        log.info("Display new user form");
         model.addAttribute("user", user);
         return "user/add";
     }
@@ -44,12 +44,12 @@ public class UserController {
             return "user/add";
         }
         if (userService.existsByUserName(user.getUsername())) {
-            log.debug("Username existing");
+            log.info("Username existing");
             result.rejectValue("username", "UsernameExist", "Ce username est deja existant");
             return "user/add";
         }
         userService.create(user);
-        log.debug("Username " + user + " was saved");
+        log.info("Username " + user + " was saved");
         return "redirect:/";
 
     }
@@ -59,6 +59,7 @@ public class UserController {
         User user = userService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         user.setPassword("");
         model.addAttribute("user", user);
+        log.info("return form with " + user + " to update it");
         return "user/update";
     }
 
@@ -66,6 +67,7 @@ public class UserController {
     public String updateUser(@PathVariable("id") Integer id, @Valid User user,
                              BindingResult result, Model model) {
         if (result.hasErrors()) {
+            log.info("informations is not valid");
             return "user/update";
         }
 
@@ -74,6 +76,7 @@ public class UserController {
         user.setId(id);
         userService.update(user);
         model.addAttribute("users", userService.findAll());
+        log.info("User " + user + " was updated");
         return "redirect:/user/list";
     }
 
@@ -82,6 +85,7 @@ public class UserController {
         User user = userService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         userService.delete(user);
         model.addAttribute("users", userService.findAll());
+        log.info("User " + id + " was deleted");
         return "redirect:/user/list";
     }
 }

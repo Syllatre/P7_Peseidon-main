@@ -26,7 +26,7 @@ public class RuleNameController {
     public String home(Model model) {
         List<RuleName> ruleNameList = ruleNameService.findAll();
         model.addAttribute("ruleNameList", ruleNameList);
-        log.debug("Display bid List");
+        log.info("Display bid List");
         return "ruleName/list";
     }
 
@@ -34,18 +34,18 @@ public class RuleNameController {
     public String addRuleForm(Model model) {
         RuleName ruleName = new RuleName();
         model.addAttribute("ruleName", ruleName);
-        log.debug("return new form");
+        log.info("return new form");
         return "ruleName/add";
     }
 
     @PostMapping("/ruleName/validate")
     public String validate(@Valid @ModelAttribute RuleName ruleName, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            log.debug("informations is not valid");
+            log.info("informations is not valid");
             return "ruleName/add";
         }
         ruleNameService.create(ruleName);
-        log.debug("ruleName " + ruleName + " was add");
+        log.info("ruleName " + ruleName + " was add");
         model.addAttribute("ruleNameList", ruleNameService.findAll());
         return "redirect:/ruleName/list";
     }
@@ -54,7 +54,7 @@ public class RuleNameController {
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         RuleName ruleName = ruleNameService.findById(id);
         model.addAttribute("ruleName", ruleName);
-        log.debug("return form with " + ruleName + " to update it");
+        log.info("return form with " + ruleName + " to update it");
         return "ruleName/update";
     }
 
@@ -62,13 +62,13 @@ public class RuleNameController {
     public String updateRuleName(@PathVariable("id") Integer id, @Valid @ModelAttribute RuleName ruleName,
                                  BindingResult result, Model model) {
         if (result.hasErrors()) {
-            log.debug("informations is not valid");
+            log.info("informations is not valid");
             return "ruleName/update";
         }
         Boolean updated = ruleNameService.updateRuleName(id, ruleName);
         if (updated) {
             model.addAttribute("rating", ruleNameService.findAll());
-            log.debug("ruleName " + ruleName + " was updated");
+            log.info("ruleName " + ruleName + " was updated");
         }
         return "redirect:/ruleName/list";
     }
@@ -76,7 +76,7 @@ public class RuleNameController {
     @GetMapping("/ruleName/delete/{id}")
     public String deleteRuleName(@PathVariable("id") Integer id, Model model) {
         ruleNameService.delete(id);
-        log.debug("ruleName " + id + " was deleted");
+        log.info("ruleName " + id + " was deleted");
         return "redirect:/ruleName/list";
     }
 }

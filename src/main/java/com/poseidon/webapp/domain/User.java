@@ -12,7 +12,7 @@ import javax.validation.constraints.Pattern;
 @Data
 @NoArgsConstructor
 public class User {
-    public static final String REGEX = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*@#$%^&+=])(?=\\S+$).{8,}$";
+    public static final String REGEX = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*@#$%^&+=!])(?=\\S+$).{8,}$";
 
 
     @Id

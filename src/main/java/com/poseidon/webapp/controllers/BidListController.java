@@ -26,7 +26,7 @@ public class BidListController {
     public String home(Model model) {
         List<BidList> bidLists = bidListService.findAll();
         model.addAttribute("bidLists", bidLists);
-        log.debug("Display bid List");
+        log.info("Display bid List");
         return "bidList/list";
     }
 
@@ -34,18 +34,18 @@ public class BidListController {
     public String addBidForm(Model model) {
         BidList bidList = new BidList();
         model.addAttribute("bidList", bidList);
-        log.debug("return new form");
+        log.info("return new form");
         return "bidList/add";
     }
 
     @PostMapping("/bidList/validate")
     public String validate(@Valid BidList bidList, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            log.debug("informations is not valid");
+            log.info("informations is not valid");
             return "bidList/add";
         }
         bidListService.create(bidList);
-        log.debug("Bid " + bidList + " was add");
+        log.info("Bid " + bidList + " was add");
         model.addAttribute("bidLists", bidListService.findAll());
         return "redirect:/bidList/list";
     }
@@ -54,7 +54,7 @@ public class BidListController {
     public String showUpdateForm(@PathVariable("BidListId") Integer BidListId, Model model) {
         BidList bidList = bidListService.findById(BidListId);
         model.addAttribute("bidList", bidList);
-        log.debug("return form with " + bidList + " to update it");
+        log.info("return form with " + bidList + " to update it");
         return "bidList/update";
     }
 
@@ -62,13 +62,13 @@ public class BidListController {
     public String updateBid(@PathVariable("BidListId") Integer BidListId, @Valid BidList bidList,
                             BindingResult result, Model model) {
         if (result.hasErrors()) {
-            log.debug("informations is not valid");
+            log.info("informations is not valid");
             return "bidList/update";
         }
         Boolean updated = bidListService.updateBidList(BidListId, bidList);
         if (updated) {
             model.addAttribute("bidLists", bidListService.findAll());
-            log.debug("Bid " + bidList + " was updated");
+            log.info("Bid " + bidList + " was updated");
         }
         return "redirect:/bidList/list";
     }
@@ -76,7 +76,7 @@ public class BidListController {
     @GetMapping("/bidList/delete/{bidListId}")
     public String deleteBid(@PathVariable("bidListId") Integer id, Model model) {
         bidListService.delete(id);
-        log.debug("Bid " + id + " was deleted");
+        log.info("Bid " + id + " was deleted");
         return "redirect:/bidList/list";
     }
 }

@@ -23,7 +23,7 @@ public class CurveController {
     public String home(Model model) {
         List<CurvePoint> curveList = curveService.findAll();
         model.addAttribute("curveList", curveList);
-        log.debug("Display curvePoint List");
+        log.info("Display curvePoint List");
         return "curvePoint/list";
     }
 
@@ -31,7 +31,7 @@ public class CurveController {
     public String addBidForm(Model model) {
         CurvePoint curvePoint = new CurvePoint();
         model.addAttribute("curvePoint", curvePoint);
-        log.debug("return new form");
+        log.info("return new form");
         return "curvePoint/add";
     }
 
@@ -39,11 +39,11 @@ public class CurveController {
     public String validate(@Valid CurvePoint curvePoint, BindingResult result, Model model) {
         model.addAttribute("curveList", curveService.findAll());
         if (result.hasErrors()) {
-            log.debug("informations is not valid");
+            log.info("informations is not valid");
             return "curvePoint/add";
         }
         curveService.create(curvePoint);
-        log.debug("CurvePoint " + curvePoint + " was add");
+        log.info("CurvePoint " + curvePoint + " was add");
 
 
         return "redirect:/curvePoint/list";
@@ -53,7 +53,7 @@ public class CurveController {
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         CurvePoint curvePoint = curveService.findById(id);
         model.addAttribute("curvePoint", curvePoint);
-        log.debug("return form with " + curvePoint + " to update it");
+        log.info("return form with " + curvePoint + " to update it");
         return "curvePoint/update";
     }
 
@@ -61,13 +61,13 @@ public class CurveController {
     public String updateBid(@PathVariable("id") Integer id, @Valid @ModelAttribute("curvePoint") CurvePoint curvePoint,
                             BindingResult result, Model model) {
         if (result.hasErrors()) {
-            log.debug("informations is not valid");
+            log.info("informations is not valid");
             return "curvePoint/update";
         }
         Boolean updated = curveService.updateCurvePoint(id, curvePoint);
         if (updated) {
             model.addAttribute("bidLists", curveService.findAll());
-            log.debug("CurvePoint " + curvePoint + " was updated");
+            log.info("CurvePoint " + curvePoint + " was updated");
         }
         return "redirect:/curvePoint/list";
     }
@@ -75,7 +75,7 @@ public class CurveController {
     @GetMapping("/curvePoint/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
         curveService.delete(id);
-        log.debug("curvePoint " + id + " was deleted");
+        log.info("curvePoint " + id + " was deleted");
         return "redirect:/curvePoint/list";
     }
 }
