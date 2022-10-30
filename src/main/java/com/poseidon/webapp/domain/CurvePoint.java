@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 
 
 @Entity
-@Table(name = "curvepoint")
+@Table(name = "curve_point")
 @Data
 @NoArgsConstructor
 public class CurvePoint {

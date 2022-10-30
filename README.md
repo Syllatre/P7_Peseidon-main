@@ -17,11 +17,12 @@ Objectif à réaliser :
 
 # Application
 Avant le lancement de l'application il faudrait creer la database poseidon et poseidontest.
+Pour lancer l'application, utilisez la commande  ```mvn spring-boot:run```
 Pour accéder à l'application rendez-vous sur l'url http://localhost:8080
 Vous pouvez directement logger à l'application avec l' ``` identifiant :
   user``` et ``` mot de passe : 1234 ``` en tant que user
   ou en tant que administrateur avec l' ``` identifiant :
-  user``` et ``` mot de passe : 1234 ```
+  admin``` et ``` mot de passe : 1234 ```
 
 sinon vous pouvez creer un compte en cliquant sur manager qui se trouve dans la page d'acceuil "/"
 

@@ -1,7 +1,7 @@
 CREATE SCHEMA IF NOT EXISTS `poseidontest` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
 USE `poseidontest`;
 
-CREATE TABLE IF NOT EXISTS `poseidontest`.`bidlist` (
+CREATE TABLE IF NOT EXISTS `poseidontest`.`bid_list` (
   bid_list_id tinyint(4) NOT NULL AUTO_INCREMENT,
   account VARCHAR(30) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci',
   type VARCHAR(30) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci',
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `poseidontest`.`bidlist` (
   DEFAULT CHARACTER SET = utf8mb4
   COLLATE = utf8mb4_0900_ai_ci;
 
-  TRUNCATE TABLE `bidlist`;
+  TRUNCATE TABLE `bid_list`;
 
 CREATE TABLE IF NOT EXISTS `poseidontest`.`trade`(
   trade_id tinyint(4) NOT NULL AUTO_INCREMENT,
@@ -60,7 +60,7 @@ ENGINE = InnoDB
 
  TRUNCATE TABLE `trade`;
 
-CREATE TABLE IF NOT EXISTS `poseidontest`.`curvePoint`(
+CREATE TABLE IF NOT EXISTS `poseidontest`.`curve_point`(
   id tinyint(4) NOT NULL AUTO_INCREMENT,
   curve_id tinyint(4) NOT NULL,
   as_of_date TIMESTAMP,
@@ -73,7 +73,7 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
-TRUNCATE TABLE `curvePoint`;
+TRUNCATE TABLE `curve_point`;
 
 CREATE TABLE IF NOT EXISTS `poseidontest`.`rating` (
   id tinyint(4) NOT NULL AUTO_INCREMENT,
@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `poseidontest`.`rating` (
 
   TRUNCATE TABLE `rating`;
 
-CREATE TABLE IF NOT EXISTS `poseidontest`.`ruleName`(
+CREATE TABLE IF NOT EXISTS `poseidontest`.`rule_ame`(
   `id` tinyint(4) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(125) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci',
   `description` VARCHAR(125) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci',
@@ -101,9 +101,9 @@ CREATE TABLE IF NOT EXISTS `poseidontest`.`ruleName`(
   DEFAULT CHARACTER SET = utf8mb4
   COLLATE = utf8mb4_0900_ai_ci;
 
-  TRUNCATE TABLE `ruleName`;
+  TRUNCATE TABLE `rule_name`;
 
-CREATE TABLE IF NOT EXISTS `poseidontest`.`Users`(
+CREATE TABLE IF NOT EXISTS `poseidontest`.`users`(
   id tinyint(4) NOT NULL AUTO_INCREMENT,
   username VARCHAR(125) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci' NOT NULL,
   password VARCHAR(125) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci' NOT NULL,
@@ -114,8 +114,8 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
-TRUNCATE TABLE `Users`;
 
-INSERT IGNORE INTO `Users`(id, fullname, username, password, role) values
+
+INSERT IGNORE INTO `users`(id, fullname, username, password, role) values
 (1, 'admin', 'admin', '$2a$10$1CqRTrB8yOLXVmAMXCHbAu08ameoCePTPenJ7Zhr1E6/.GdnbRn.u', 'ADMIN'),
 (2, 'user', 'user', '$2a$10$1CqRTrB8yOLXVmAMXCHbAu08ameoCePTPenJ7Zhr1E6/.GdnbRn.u', 'USER');
